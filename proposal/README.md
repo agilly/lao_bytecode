@@ -1,0 +1,27 @@
+## The proposal
+
+Use this folder to present your proposal. Two markdown files, proposal.mb and management.md, suggest a structure you may follow to cover the required content. Fill free to use them, or adjust them to your taste.
+
+You may find it useful to include link, tables, figures, etc. There are plenty of tutorials [online](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) showing you how to use markdown.
+
+Keep it concise and simple here.
+
+### Images and other resources
+
+If you need to include images and other technical resources, place them in the assets folder and insert them or link to them, as in the example below.
+
+
+![The sustainable development goals.](assets/SDG_source_UN.org.png)
+
+
+### A table
+
+Here is also a simple table!
+
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
+
+You can of course change or delete this file and the sample image in the assets folder.
