@@ -12,11 +12,7 @@ If you present a few slides, please also include them here too **as a pdf**.
 
 ### Images and other resources
 
-If you need to include images and other technical resources, place them in the `assets` folder and insert them or link to them, as in the example below.
-
-```
-![The sustainable development goals.](assets/SDG_source_UN.org.png)
-```
+If you need to include images and other technical resources, place them in the `assets` folder and insert them or link to them, as in the example below. (You can check the source of this markdown file.)
 
 ![The sustainable development goals.](assets/SDG_source_UN.org.png)
 
