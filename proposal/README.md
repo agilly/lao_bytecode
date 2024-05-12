@@ -1,10 +1,14 @@
 ## The proposal
 
-Use this folder to present your proposal. Two markdown files, proposal.mb and management.md, suggest a structure you may follow to cover the required content. Fill free to use them, or adjust them to your taste.
+Use this folder to present your proposal. Two markdown files, `proposal.md` and `management.md`, suggest a structure you may follow to cover the required content. Fill free to use them, or adjust them to your taste.
 
 You may find it useful to include link, tables, figures, etc. There are plenty of tutorials [online](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) showing you how to use markdown.
 
 Keep it concise and simple here.
+
+If you present a few slides, please also include them here too **as a pdf**.
+
+
 
 ### Images and other resources
 
