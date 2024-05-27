@@ -29,6 +29,7 @@ Here is also a simple table!
 
 You can of course change or delete this file and the sample image in the assets folder.
 
+For super-and sub-scripts: a<sub>1</sub> = 12 ms<sup>-2</sup>.
 
 You can also include formulae in LaTeX syntax: $\alpha=\frac{1}{\sqrt{2}}$.
 
