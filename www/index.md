@@ -1,9 +1,11 @@
-## Langing page of the website
+---
+title: Landing page of the website
+---
 
-This is a test.
+## Introduction
 
-[Find out abou the project](about)
 
+Bla bla bla.
 
 
 ### To configure your website:

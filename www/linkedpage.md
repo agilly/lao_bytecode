@@ -1,4 +1,7 @@
-## This is a linked page
+---
+title: This is a linked page
+---
+
 
 Just to show you how to structure a simple website using multiple pages.
 
