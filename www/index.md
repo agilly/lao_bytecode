@@ -24,4 +24,6 @@ https://technology-for-the-poorest-billion.github.io/[your repo name here]
 This is a [link](linkedpage.md) to interesting content.
 ```
 
+Which results in:
 
+This is a [link](linkedpage.md) to interesting content.
