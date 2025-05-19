@@ -1,2 +1,2 @@
 # Project Template
-Fork this for a basic structure for each project
+This project is for the MakerBox-Bytecode
