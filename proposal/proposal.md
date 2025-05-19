@@ -1,5 +1,10 @@
 # Problem description
-
+### Aims
+Display Lao messages on screens (E paper module/OLED)
+### Current problems:
+* AI machines cannot convert Lao text to HEX code or binary code
+* Some letters have accent marks above or below the letter which will increase the spacing
+* Determining pixel size?
 # Background on project 8 (supplied by collaborators)
 
 ## Regionalization.ino
