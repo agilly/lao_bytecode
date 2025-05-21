@@ -29,4 +29,9 @@ Tasks:
 . order a screen/ arduino - in department
 
 
+Research - Lao exists in unicode, what existing solutions are there fpor other languages.
+Minimum viable product - arduino with pre-loaded messages to send to screen.
+Extension - computer talking to arduino to display messages as typed.
+
+
 
