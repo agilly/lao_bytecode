@@ -20,6 +20,7 @@ We propose three possible solutions:
 ### Rule-Based Rendering 
 * A second solution would be to develop a rule based program which uses a simple set of rules to decide where to place tone marks. Eg. If the incoming text includes a base consonant followed by a vowel, the program would detect this and then place the vowel a fixed offset above or below the consonant.
 * This solution would be compatible with a standard Lao keyboard and Unicode.
+* It would not require as many bitmapped glyphs - the individual characters would suffice
 * However, there may be problems with the overlapping characters due to inadequate offsets and multiple stacked marks could be a problem.
 ### Pre-processing of the text
 * The text could be shaped and preprocessed by the computer sending the message (which has higher compute power). This could then be converted into a set of specific drawing instructions to be sent to the microcontroller. (Eg. Exact offsets after considering each character's height.)
