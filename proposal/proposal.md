@@ -22,7 +22,7 @@ We propose three possible solutions:
 * This solution would be compatible with a standard Lao keyboard and Unicode.
 * However, there may be problems with the overlapping characters due to inadequate offsets and multiple stacked marks could be a problem.
 ### Pre-processing of the text
-* The text could be shaped and preprocessed by the computer sending the message (which has higher computer power). This could then be converted into a set of specific drawing instructions to be sent to the microcontroller. (Exact offsets for considering each character's height.)
+* The text could be shaped and preprocessed by the computer sending the message (which has higher compute power). This could then be converted into a set of specific drawing instructions to be sent to the microcontroller. (Exact offsets for considering each character's height.)
 
 # Assessment of the quality of the proposal
 
