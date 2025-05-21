@@ -18,10 +18,11 @@ We propose three possible solutions:
 * While this eliminates the need for shaping or mark positioning, this doens't scale well as supporting every valid Lao combination would require hundreds of glyphs.
 * A specific keyboard would need to be designed for this solution (which would pose a problem in fitting all the combinations onto the keyboard space.)
 ### Rule-Based Rendering 
-* A second solution would be to develop a rule based program which uses a simple set of ruled to decide where to place tone marks. Eg. If the incoming text includes a base consonant followed by a vowel, the program would detect this and then place the vowel a fixed offset above or below the consonant.
+* A second solution would be to develop a rule based program which uses a simple set of rules to decide where to place tone marks. Eg. If the incoming text includes a base consonant followed by a vowel, the program would detect this and then place the vowel a fixed offset above or below the consonant.
 * This solution would be compatible with a standard Lao keyboard and Unicode.
 * However, there may be problems with the overlapping characters due to inadequate offsets and multiple stacked marks could be a problem.
-### Pre-processing of the 
+### Pre-processing of the text
+* The text could be shaped and preprocessed by the computer sending the message (which has higher computer power). This could then be converted into a set of specific drawing instructions to be sent to the microcontroller. (Exact offsets for considering each character's height.)
 
 # Assessment of the quality of the proposal
 
