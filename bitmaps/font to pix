@@ -1,0 +1,9 @@
+from PIL import Image, ImageFont, ImageDraw
+import os
+
+FONT_PATH = "Phetsarath-Regular.ttf"
+FONT_SIZE = 14
+GLYPH_WIDTH = 16
+GLYPH_HEIGHT = 16
+OUTPUT_H = "lao_bitmap_font.h"
+LAO_UNICODE_RANGE = range(0x0E80, 0x0F00)
