@@ -1,3 +1,11 @@
+"""
+This uses the Phetsarath-Regular.ttf file to draw images of each of the characters (including whitespace characters) 
+It loops through each pixel of the drawn image and builds a byte array of the pixel values
+It can be used to generate bitmaps with different glyph pixel sizes!
+Different Phetsarath fonts can be used to generate the glyphs (should be smaller than glyph size)
+"""
+
+
 from PIL import Image, ImageFont, ImageDraw
 import os
 BASE_DIR = os.path.dirname(__file__)  # gets the path to the current .py file
