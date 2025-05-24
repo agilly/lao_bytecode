@@ -1,5 +1,4 @@
 from PIL import Image, ImageFont, ImageDraw
-import os
 
 FONT_PATH = "Phetsarath-Regular.ttf"
 FONT_SIZE = 14
@@ -7,3 +6,23 @@ GLYPH_WIDTH = 16
 GLYPH_HEIGHT = 16
 OUTPUT_H = "lao_bitmap_font.h"
 LAO_UNICODE_RANGE = range(0x0E80, 0x0F00)
+
+def image_to_bits(image):
+    pixels = image.load()
+    byte_array = []
+    for y in range(GLYPH_HEIGHT):
+        byte = 0
+        bits_filled = 0
+        for x in range(GLYPH_WIDTH):
+            pix = pixels[x,y]
+            bit = 0 if pix == 0 else 1 #checks value of pixel @ location in image
+            byte = (byte << 1) | bit #shifts bits to the left and adds new bit
+            bits_filled += 1
+            if bits_filled == 8:
+                byte_array.append(byte) #once 8 bits are encoded we append to the array
+                byte = 0
+                bits_filled = 0
+        if bits_filled > 0:
+            byte <<= (8-bits filled)
+            byte_array.append(byte)
+    return byte_array
