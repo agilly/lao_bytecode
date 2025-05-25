@@ -35,3 +35,12 @@ Extension - computer talking to arduino to display messages as typed.
 
 
 
+## one potential solution
+
+use google fonts lao (if includes composite glyphs as vectors) -- it only includes some. likewise Phetsarath OT (used by the lao government) includes the same.
+
+use harfbuzz to convert to bitmaps
+print bitmaps on arduino with drawBitmap() and a rule based system 
+
+investigate OpenType layout tables (GSUB/GPOS)
+
