@@ -13,9 +13,9 @@ import unicodedata
 
 BASE_DIR = os.path.dirname(__file__)  # gets the path to the current .py file
 FONT_PATH = os.path.join(BASE_DIR, "NotoSansLao-Regular.ttf") #using NotoSansLao instead of Phetsarath because it renders ton marks too
-FONT_SIZE = 40
-GLYPH_WIDTH = 60  #change as required
-GLYPH_HEIGHT = 80
+FONT_SIZE = 20
+GLYPH_WIDTH = 20  #change as required
+GLYPH_HEIGHT = 20
 OUTPUT_PATH = os.path.join(BASE_DIR, "lao_bitmap_font.h") #creating a file to write into
 LAO_UNICODE_RANGE = range(0x0E80, 0x0F00)
 
@@ -50,6 +50,7 @@ def image_to_bits(image):
         if bits_filled > 0:
             byte <<= (8-bits_filled) #if we reach the end of a row and we dont have a complete byte, pad with zeros at end
             byte_array.append(byte)
+    print(len(byte_array))
     return byte_array
 
 font = ImageFont.truetype(FONT_PATH, FONT_SIZE)
