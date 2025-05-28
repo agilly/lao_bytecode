@@ -1,60 +1,127 @@
 import xml.etree.ElementTree as ET
-from collections import defaultdict
 
-def parse_gsub(ttx_path):
-    tree = ET.parse(ttx_path)
+def get_coverage(coverage_elem):
+    return [glyph.attrib["value"] for glyph in coverage_elem.findall("Glyph")]
+
+def parse_ttx_gsub_rules(ttx_file):
+    tree = ET.parse(ttx_file)
     root = tree.getroot()
 
-    # GSUB elements
-    gsub = root.find(".//GSUB")
+    gsub = root.find("GSUB")
     if gsub is None:
-        raise ValueError("No GSUB table found in this TTX file.")
+        raise ValueError("No <GSUB> table found in the TTX file.")
 
-    # Feature tag -> lookup index list
-    feature_to_lookups = defaultdict(list)
-    for feature in gsub.findall(".//FeatureRecord"):
-        tag = feature.find("FeatureTag").attrib["value"]
-        lookup_indices = [int(idx.attrib["value"]) for idx in feature.findall(".//LookupListIndex")]
-        feature_to_lookups[tag].extend(lookup_indices)
+    lookup_list = gsub.find("LookupList")
+    if lookup_list is None:
+        raise ValueError("No <LookupList> found in the GSUB table.")
 
-    # Lookup index -> list of substitution rules
-    lookup_rules = defaultdict(list)
-    lookups = gsub.find("LookupList")
-    for lookup in lookups.findall("Lookup"):
-        index = int(lookup.attrib["index"])
-        lookup_type = int(lookup.attrib["LookupType"])
+    rules = []
 
-        if lookup_type == 1:
-            # Single substitutions
-            for subst in lookup.findall(".//SubstFormat1/Substitution"):
-                lookup_rules[index].append(("single", subst.attrib["in"], subst.attrib["out"]))
-        elif lookup_type == 4:
-            # Ligature substitutions
-            for ligset in lookup.findall(".//LigatureSet"):
-                first = ligset.attrib["glyph"]
-                for lig in ligset.findall("Ligature"):
-                    components = [first] + [comp.attrib["glyph"] for comp in lig.findall("Component")]
-                    ligature = lig.attrib["glyph"]
-                    lookup_rules[index].append(("ligature", components, ligature))
-        elif lookup_type == 6:
-            # Contextual substitutions (basic example)
-            lookup_rules[index].append(("contextual", "See LookupType=6"))  # Simplified
-        else:
-            lookup_rules[index].append(("other", f"LookupType={lookup_type} not parsed"))
+    for lookup in lookup_list.findall("Lookup"):
+        lookup_index = lookup.attrib.get("index")
+        lookup_type_elem = lookup.find("LookupType")
+        lookup_type = lookup_type_elem.attrib.get("value") if lookup_type_elem is not None else None
 
-    # Final mapping: feature -> list of readable rules
-    result = {}
-    for feature, indices in feature_to_lookups.items():
-        result[feature] = []
-        for idx in indices:
-            result[feature].extend(lookup_rules[idx])
+        # Iterate over all direct children of <Lookup>
+        for child in lookup:
+            tag = child.tag
 
-    return result
+            if tag == "SingleSubst":
+                for sub in child.findall("Substitution"):
+                    rules.append({
+                        "lookup_index": lookup_index,
+                        "type": "SingleSubst",
+                        "in": sub.attrib["in"],
+                        "out": sub.attrib["out"]
+                    })
 
-# Example usage:
+            elif tag == "MultipleSubst":
+                for seq in child.findall("Sequence"):
+                    input_glyph = seq.attrib["name"]
+                    output = [s.attrib["value"] for s in seq.findall("Substitute")]
+                    rules.append({
+                        "lookup_index": lookup_index,
+                        "type": "MultipleSubst",
+                        "in": input_glyph,
+                        "out": output
+                    })
+
+            elif tag == "AlternateSubst":
+                for altset in child.findall("AlternateSet"):
+                    input_glyph = altset.attrib["glyph"]
+                    output = [alt.attrib["value"] for alt in altset.findall("Alternate")]
+                    rules.append({
+                        "lookup_index": lookup_index,
+                        "type": "AlternateSubst",
+                        "in": input_glyph,
+                        "out": output
+                    })
+
+            elif tag == "LigatureSubst":
+                for lig_set in child.findall("LigatureSet"):
+                    first = lig_set.attrib["glyph"]
+                    for lig in lig_set.findall("Ligature"):
+                        components = [first] + lig.attrib["components"].split(",")
+                        rules.append({
+                            "lookup_index": lookup_index,
+                            "type": "LigatureSubst",
+                            "in": components,
+                            "out": lig.attrib["glyph"]
+                        })
+
+            # elif tag == "ChainContextSubst" and child.attrib.get("Format") == "3":
+            #     backtrack = []
+            #     input_glyphs = []
+            #     lookahead = []
+            #     substs = []
+
+            #     for coverage in child.findall("BacktrackCoverage"):
+            #         backtrack.extend(get_coverage(coverage))
+
+            #     for coverage in child.findall("InputCoverage"):
+            #         input_glyphs.extend(get_coverage(coverage))
+
+            #     for coverage in child.findall("LookAheadCoverage"):
+            #         lookahead.extend(get_coverage(coverage))
+
+            #     for record in child.findall("SubstLookupRecord"):
+            #         substs.append({
+            #             "SequenceIndex": record.attrib["SequenceIndex"],
+            #             "LookupListIndex": record.attrib["LookupListIndex"]
+            #         })
+
+            #     rules.append({
+            #         "lookup_index": lookup_index,
+            #         "type": "ChainContextSubst_Format3",
+            #         "backtrack": backtrack,
+            #         "input": input_glyphs,
+            #         "lookahead": lookahead,
+            #         "substitutions": substs
+            #     })
+
+            # You may still want to check SubTable children if they exist
+            elif tag == "SubTable":
+                # fallback: parse subtables as before (optional)
+                for subt in child:
+                    subt_tag = subt.tag
+                    # Similar parsing as above can be done here, or just warn unknown
+                    rules.append({
+                        "lookup_index": lookup_index,
+                        "type": subt_tag,
+                        "detail": "SubTable child substitution - parsing not implemented"
+                    })
+
+            else:
+                rules.append({
+                    "lookup_index": lookup_index,
+                    "type": tag,
+                    "detail": "Unhandled or unknown substitution type"
+                })
+
+    return rules
+
+# Example usage
 if __name__ == "__main__":
-    gsub_info = parse_gsub("./output_files/Phetsarath-Regular.G_S_U_B_.ttx")
-    for feature, rules in gsub_info.items():
-        print(f"\nFeature: {feature}")
-        for rule in rules:
-            print("  ", rule)
+    rules = parse_ttx_gsub_rules("./output_files/Phetsarath-Regular-GSUB.ttx")
+    for rule in rules:
+        print(rule)
