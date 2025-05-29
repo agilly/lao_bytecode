@@ -1,0 +1,5 @@
+text = "ນ້ຳ"
+
+# Show each character and its Unicode code point
+for c in text:
+    print(f"{c} → U+{ord(c):04X}")
