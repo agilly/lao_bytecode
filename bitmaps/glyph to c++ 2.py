@@ -7,7 +7,7 @@ import tempfile
 BASE_DIR = os.path.dirname(__file__)
 font_path = os.path.join(BASE_DIR, "NotoSansLao-Regular.ttf")
 
-text = "ກຶ່"
+text = "ກຼ່"
 
 with open(font_path, "rb") as f:
     font_data = f.read()
@@ -34,9 +34,9 @@ try:
     face = freetype.Face(tmp_font_path)
     face.set_char_size(72 * 64)
 
-    image_width, image_height = 400, 150
+    image_width, image_height = 100, 100
     image = Image.new("L", (image_width, image_height), 255)
-    x, y = 50, 100
+    x, y = 25, 80
 
     for info, pos in zip(infos, positions):
         glyph_index = info.codepoint

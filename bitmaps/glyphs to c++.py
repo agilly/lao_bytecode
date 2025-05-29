@@ -50,7 +50,7 @@ for char in tqdm(characters, desc="Processing characters"):
     # Create a blank image
     image_width, image_height = 100, 100
     image = Image.new("L", (image_width, image_height), 255)
-    x, y = 10, 60  # Starting position
+    x, y = 25, 80  # Starting position
 
     for info, pos in zip(infos, positions):
         glyph_index = info.codepoint
