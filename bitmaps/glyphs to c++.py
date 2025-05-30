@@ -7,7 +7,7 @@ from tqdm import tqdm  # Progress bar
 
 BASE_DIR = os.path.dirname(__file__)
 font_path = os.path.join(BASE_DIR, "NotoSansLao-Regular.ttf")
-chars_file_path = os.path.join(BASE_DIR, "lao_characters.txt")  # Lao characters file
+chars_file_path = os.path.join(BASE_DIR, "lao_full_set.txt")  # Lao characters file
 
 # Load font data
 with open(font_path, "rb") as f:
