@@ -43,7 +43,7 @@ special_symbols = ['ໆ', 'ໜ', 'ໝ']
 digits = ['໐', '໑', '໒', '໓', '໔', '໕', '໖', '໗', '໘', '໙']
 
 # Combine all standalone characters (vowels not placed above or below are considered standalone)
-standalone_chars = consonants + leading_vowels+ special_symbols + digits
+standalone_chars = consonants + leading_vowels + post_vowels + special_symbols + digits
 
 MAX_LINES = 50000
 count = 0

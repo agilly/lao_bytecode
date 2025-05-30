@@ -30,6 +30,10 @@
 ໂ
 ໃ
 ໄ
+ະ
+າ
+ຳ
+ຽ
 ໆ
 ໜ
 ໝ
@@ -1366,4 +1370,4 @@
 ຮຼ້
 ຮຼ໊
 ຮຼ໋
-Wrote 1368 entries to lao_full_set.txt
+Wrote 1372 entries to lao_full_set.txt
