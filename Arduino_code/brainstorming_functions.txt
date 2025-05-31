@@ -4,8 +4,8 @@ files to be included with arduino code:
 ---------------------------------------------------------
 structure of phrases_to_display.h:
 
-#ifndef WORDS_H
-#define WORDS_H
+#ifndef phrases_to_display_H
+#define phrases_to_display.h
 
 const uint8_t all_phrases[] = {
   0, 1, 2, 3,     // phrase 1
