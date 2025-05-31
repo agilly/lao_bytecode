@@ -4,6 +4,9 @@ files to be included with arduino code:
 ---------------------------------------------------------
 structure of phrases_to_display.h:
 
+#ifndef WORDS_H
+#define WORDS_H
+
 const uint8_t all_phrases[] = {
   0, 1, 2, 3,     // phrase 1
   4, 0, 6,        // phrase 2
@@ -13,6 +16,8 @@ const uint8_t all_phrases[] = {
 const uint8_t phrase_starts[] = {0, 4, 7};     // starting index of each phrase
 const uint8_t phrase_lengths[] = {4, 3, 5};    // length of each phrase
 const uint8_t num_phrases = 3;
+
+#endif
 ----------------------------------------------------------
 
 in arduino file, we need functions to:
