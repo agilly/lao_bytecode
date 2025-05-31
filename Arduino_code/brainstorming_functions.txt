@@ -1,0 +1,26 @@
+files to be included with arduino code:
+* bespoke_bitmaps.h
+* phrases_to_display.h 
+---------------------------------------------------------
+structure of phrases_to_display.h:
+
+const uint8_t all_phrases[] = {
+  0, 1, 2, 3,     // phrase 1
+  4, 0, 6,        // phrase 2
+  1, 8, 0, 1, 2   // phrase 3
+};
+
+const uint8_t phrase_starts[] = {0, 4, 7};     // starting index of each phrase
+const uint8_t phrase_lengths[] = {4, 3, 5};    // length of each phrase
+const uint8_t num_phrases = 3;
+----------------------------------------------------------
+
+in arduino file, we need functions to:
+* read the phrases_to_display.h file and get each phrase
+* access the required bespoke_bitmaps
+* draw the phrase
+* scroll
+
+------------------------------------------------------------
+Further to do-s:
+perhaps enable a keyboard input - eg. display a certain phrase when a button is clicked ect.
