@@ -2,6 +2,7 @@
 
 import char_list_bitmap_generator_canonical_form as bitmap_gen
 import process_input_strings as process_str
+from test_functions import display_bitmap 
 
 # see if an input_strings file exists, if not, generate it
 try:
@@ -19,9 +20,10 @@ print("Identifying unique characters...")
 char_list, index_list = process_str.build_char_and_index_lists(input_list)
 
 print("Generating bitmaps for characters...")
-bitmap_gen.generate_bitmaps_for_chars(char_list, font_path='./NotoSansLao-Regular.ttf', output_header="./glyph_bitmaps_bespoke.h")
+bytes_list = bitmap_gen.generate_bitmaps_for_chars(char_list, font_path='./NotoSansLao-Regular.ttf', output_header="./glyph_bitmaps_bespoke.h")
 
 print("Writing index list to header file...")
 process_str.write_index_list_to_header(index_list)
 
-
+print("displaying the whole bitmap...")
+display_bitmap(bytes_list, 4)

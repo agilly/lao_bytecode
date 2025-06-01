@@ -135,7 +135,8 @@ def build_char_and_index_lists(input_list):
         index_list.append(indices)
 
     # Convert each cluster string (e.g. 'é') into a list of its characters ['e', '́']
-    char_list = [[c for c in cluster] for cluster in all_clusters]
+    # char_list = [[c for c in cluster] for cluster in all_clusters]
+    char_list = [cluster for cluster in all_clusters]  # Keep each cluster as a single string
 
     return char_list, index_list
 

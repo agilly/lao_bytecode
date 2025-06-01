@@ -13,10 +13,6 @@ def generate_bitmaps_for_chars(char_list, font_path=None, output_header="glyph_b
     with open(font_path, "rb") as f:
         font_data = f.read()
 
-    characters = []
-    for sublist in char_list:
-        characters.extend(sublist)
-
     # Initialize HarfBuzz
     hb_blob = hb.Blob(font_data)
     hb_face = hb.Face(hb_blob)
@@ -34,7 +30,7 @@ def generate_bitmaps_for_chars(char_list, font_path=None, output_header="glyph_b
     all_bytes = []
 
     # Progress bar for each character
-    for char in tqdm(characters, desc="Processing characters"):
+    for char in tqdm(char_list, desc="Processing characters"):
         # Shape text using HarfBuzz
         buf = hb.Buffer()
         buf.add_str(char)
