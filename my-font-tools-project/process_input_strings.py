@@ -154,53 +154,56 @@ def print_char_and_index_lists(char_list, index_list):
         print(f"String {i}: {indices}")
 
 
-def write_index_list_to_header(index_list):
+def write_index_list_to_header(index_list, filename="phrases_to_display.h"):
     """
     Writes the index list to a C++ header file.
 
     Args:
         index_list (list[list[int]]): List of index lists for each input string.
-
-    structure of phrases_to_display.h:
-
-    #ifndef PHRASES_TO_DISPLAY_H
-    #define PHRASES_TO_DISPLAY_H
-
-    const uint8_t all_phrases[] = {
-    0, 1, 2, 3,     // phrase 1
-    4, 0, 6,        // phrase 2
-    1, 8, 0, 1, 2   // phrase 3
-    };
-
-    const uint8_t phrase_starts[] = {0, 4, 7};     // starting index of each phrase
-    const uint8_t phrase_lengths[] = {4, 3, 5};    // length of each phrase
-    const uint8_t num_phrases = 3;
-
-    #endif
+        filename (str): Output header file name (default: "phrases_to_display.h")
     """
-    output_header = "phrases_to_display.h"
 
-    with open(output_header, 'w', encoding='utf-8') as f:
+    # Flatten the list of indices
+    all_indices = [idx for phrase in index_list for idx in phrase]
+
+    # Compute start indices and lengths
+    starts = []
+    lengths = []
+    current_start = 0
+    for phrase in index_list:
+        starts.append(current_start)
+        lengths.append(len(phrase))
+        current_start += len(phrase)
+
+    num_phrases = len(index_list)
+
+    with open(filename, "w") as f:
         f.write("#ifndef PHRASES_TO_DISPLAY_H\n")
         f.write("#define PHRASES_TO_DISPLAY_H\n\n")
 
-        # Write the all_phrases array
+        # Write all_phrases
         f.write("const uint8_t all_phrases[] = {\n")
-        for indices in index_list:
-            f.write("    " + ', '.join(map(str, indices)) + ",\n")
+        for phrase in index_list:
+            f.write("    ")
+            f.write(", ".join(str(i) for i in phrase))
+            f.write(",    // phrase {}\n".format(index_list.index(phrase) + 1))
         f.write("};\n\n")
 
-        # Write the phrase_starts and phrase_lengths arrays
+        # Write phrase_starts
         f.write("const uint8_t phrase_starts[] = {")
-        f.write(', '.join(str(i) for i in range(len(index_list))))
-        f.write("};\n\n")
+        f.write(", ".join(str(s) for s in starts))
+        f.write("};     // starting index of each phrase\n")
 
+        # Write phrase_lengths
         f.write("const uint8_t phrase_lengths[] = {")
-        f.write(', '.join(str(len(indices)) for indices in index_list))
-        f.write("};\n\n")
+        f.write(", ".join(str(l) for l in lengths))
+        f.write("};    // length of each phrase\n")
 
-        f.write(f"const uint8_t num_phrases = {len(index_list)};\n\n")
-        f.write("#endif // PHRASES_TO_DISPLAY_H\n")
+        # Write num_phrases
+        f.write(f"const uint8_t num_phrases = {num_phrases};\n\n")
+
+        f.write("#endif\n")
+
 
 
 # Main execution
