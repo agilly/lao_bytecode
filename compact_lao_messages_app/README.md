@@ -19,7 +19,7 @@ Main output files are found in the arduino_code folder
 
 Supports any script thanks to HarfBuzz and FreeType.
 1. Clone the Repository
-git clone https://github.com/your-username/grapheme-bitmap-generator.git
+git clone https://github.com/ ...
 cd compact_lao_messages_app
 2. Create a Virtual Environment
 python3 -m venv .venv
