@@ -25,13 +25,15 @@ Supports any script thanks to HarfBuzz and FreeType.
 `source .venv/bin/activate`   # On Windows: `.venv\Scripts\activate`
 3. Install Dependencies:
 `pip install -r requirements.txt`
-Required packages include:
+
+    Required packages include:
     * Pillow
     * freetype-py
     * uharfbuzz
     * grapheme
     * tqdm
-You may also need system-level dependencies like freetype-dev.
+
+    You may also need system-level dependencies like freetype-dev.
 
 ## How to Run
 
