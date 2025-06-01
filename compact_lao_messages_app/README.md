@@ -37,9 +37,9 @@ Supports any script thanks to HarfBuzz and FreeType.
 
     You may also need system-level dependencies like freetype-dev.
 
-### Run
+## Run
 
-4. `python3 run.py`
+1. `python3 run.py` (from within the `compact_lao_messages_app` directory)
 
 ### What Happens:
 If `input.csv` already exists, it is loaded and processed.
