@@ -12,8 +12,10 @@ Supports any script thanks to HarfBuzz and FreeType.
 ## Outputs:
 
 1. `./arduino_code/scrolling_messages.ino` : An example of code for displaying a scrolling message on an OLED screen
+
 2. `./arduino_code/glyph_bitmaps.h` : auto-generated header file, containing the all the needed bitmaps compressed into one large bitmap (to save space)
-3. `./arduino_code/phrases_to_display.h` : auto-generated header file, containing, for each input phrase, a squential list of indexes into the overall character list
+
+3. `./arduino_code/phrases_to_display.h` : auto-generated header file, containing, for each input phrase, a  list of indexes into the overall character list
 
 ## Setup
 
@@ -35,9 +37,9 @@ Supports any script thanks to HarfBuzz and FreeType.
 
     You may also need system-level dependencies like freetype-dev.
 
-## How to Run
+### Run
 
-1. `python3 run.py`
+4. `python3 run.py`
 
 ### What Happens:
 If `input.csv` already exists, it is loaded and processed.
