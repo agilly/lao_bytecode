@@ -68,10 +68,6 @@ def get_input_strings_from_csv(file_path):
 
     return input_list
 
-
-
-import unicodedata
-
 def get_input_strings():
     """
     Collects strings from user input interactively.
@@ -143,6 +139,68 @@ def build_char_and_index_lists(input_list):
 
     return char_list, index_list
 
+def print_char_and_index_lists(char_list, index_list):
+    """
+    Prints the character list and index list in a readable format.
+
+    Args:
+        char_list (list[list[str]]): List of grapheme clusters.
+        index_list (list[list[int]]): List of index lists for each input string.
+    """
+    print("Character List:")
+    print('[' + ' '.join([''.join(cluster) for cluster in char_list]) + ']')
+    print("\nIndex List:")
+    for i, indices in enumerate(index_list):
+        print(f"String {i}: {indices}")
+
+
+def write_index_list_to_header(index_list):
+    """
+    Writes the index list to a C++ header file.
+
+    Args:
+        index_list (list[list[int]]): List of index lists for each input string.
+
+    structure of phrases_to_display.h:
+
+    #ifndef PHRASES_TO_DISPLAY_H
+    #define PHRASES_TO_DISPLAY_H
+
+    const uint8_t all_phrases[] = {
+    0, 1, 2, 3,     // phrase 1
+    4, 0, 6,        // phrase 2
+    1, 8, 0, 1, 2   // phrase 3
+    };
+
+    const uint8_t phrase_starts[] = {0, 4, 7};     // starting index of each phrase
+    const uint8_t phrase_lengths[] = {4, 3, 5};    // length of each phrase
+    const uint8_t num_phrases = 3;
+
+    #endif
+    """
+    output_header = "phrases_to_display.h"
+
+    with open(output_header, 'w', encoding='utf-8') as f:
+        f.write("#ifndef PHRASES_TO_DISPLAY_H\n")
+        f.write("#define PHRASES_TO_DISPLAY_H\n\n")
+
+        # Write the all_phrases array
+        f.write("const uint8_t all_phrases[] = {\n")
+        for indices in index_list:
+            f.write("    " + ', '.join(map(str, indices)) + ",\n")
+        f.write("};\n\n")
+
+        # Write the phrase_starts and phrase_lengths arrays
+        f.write("const uint8_t phrase_starts[] = {")
+        f.write(', '.join(str(i) for i in range(len(index_list))))
+        f.write("};\n\n")
+
+        f.write("const uint8_t phrase_lengths[] = {")
+        f.write(', '.join(str(len(indices)) for indices in index_list))
+        f.write("};\n\n")
+
+        f.write(f"const uint8_t num_phrases = {len(index_list)};\n\n")
+        f.write("#endif // PHRASES_TO_DISPLAY_H\n")
 
 
 # Main execution
@@ -153,11 +211,5 @@ input_list = get_input_strings_from_csv('input_strings.csv')  # Replace with you
 
 char_list, index_list = build_char_and_index_lists(input_list)
 
-# Print the results
-print("Character List:")
-print('[' + ' '.join([''.join(cluster) for cluster in char_list]) + ']')
-print("\nIndex List:")
-for i, indices in enumerate(index_list):
-    print(f"String {i}: {indices}")
-
+print_char_and_index_lists(char_list, index_list)
     
