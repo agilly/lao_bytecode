@@ -52,6 +52,7 @@ phrases_to_display.h
 
 # Exported CSVs (if intermediate)
 *.csv
+!input_strings.csv
 
 # PyCharm
 .idea/
