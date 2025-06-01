@@ -11,9 +11,9 @@ Generating C++ header files to display text on a pixel-based embedded display (e
 
 Main output files are found in the arduino_code folder
 
-scrolling_messages.ino : An example of code for displaying a scrolling message on an OLED screem
-glyph_bitmaps.h : auto-generated header file, containing the bitmaps
-phrases_to_display.h : auto-generated header file, containing the indexes into the bitmap list for each character of each phrase
+1. scrolling_messages.ino : An example of code for displaying a scrolling message on an OLED screem
+2. glyph_bitmaps.h : auto-generated header file, containing the bitmaps
+3. phrases_to_display.h : auto-generated header file, containing the indexes into the bitmap list for each character of each phrase
 
 ## Features
 
