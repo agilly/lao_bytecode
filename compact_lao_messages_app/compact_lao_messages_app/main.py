@@ -33,8 +33,10 @@ def main():
     print("Writing index list to header file...")
     process_str.write_index_list_to_header(index_list, filename="./arduino_code/phrases_to_display.h")
 
-    # print("displaying the whole bitmap...")
-    # display_bitmap(bytes_list, 4)
+    user_input = input("Would you like to display the whole bitmap for debugging? (y/N): ").strip().lower()
+    if user_input in ["y", "yes"]:
+        print("Displaying the whole bitmap...")
+        display_bitmap(bytes_list, 4)  # Adjust width as needed
 
 
 
