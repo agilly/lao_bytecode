@@ -9,14 +9,6 @@ Generating C++ header files to display text on a pixel-based embedded display (e
 
 Supports any script thanks to HarfBuzz and FreeType.
 
-## Outputs:
-
-1. `./arduino_code/scrolling_messages.ino` : An example of code for displaying a scrolling message on an OLED screen
-
-2. `./arduino_code/glyph_bitmaps.h` : auto-generated header file, containing the all the needed bitmaps compressed into one large bitmap (to save space)
-
-3. `./arduino_code/phrases_to_display.h` : auto-generated header file, containing, for each input phrase, a  list of indexes into the overall character list
-
 ## Setup
 
 1. Clone the Repository:
@@ -41,10 +33,39 @@ Supports any script thanks to HarfBuzz and FreeType.
 
 1. `python3 run.py` (from within the `compact_lao_messages_app` directory)
 
-### What Happens:
-If `input.csv` already exists, it is loaded and processed.
-If `input.csv` does not exist, you will be prompted to enter phrases one at a time in the terminal.
-Each phrase is broken into grapheme clusters and rasterized to 30×30 black & white bitmaps.
-The outputs header files, as specified above, are written into `\arduino_code`
+### Main Loop Explanation
+
+1.  Input String Handling
+    CSV Check:
+    The app looks for `./input_files/input_strings.csv`, which stores Lao strings to convert.
+    Overwrite Prompt:
+    If the file exists, it asks the user whether to overwrite it.
+    If the user chooses to overwrite (y), it:
+    Prompts the user for new strings (`get_input_strings()`).
+    Saves them to CSV using `save_strings_to_csv()`.
+    Otherwise, it loads the existing strings from the CSV.
+
+2.  Character Analysis
+    Build Unique Characters:
+    It extracts all unique characters across the input strings and builds:
+    `char_list`: the sorted list of unique characters.
+    `index_list`: a list of indices representing which characters form each phrase.
+    Debug Print:
+    Displays both lists for developer inspection using `print_char_and_index_lists()`.
+
+3.  Bitmap Generation
+    Create Bitmaps:
+    It generates monochrome bitmap images (bit-packed) for each unique character using `generate_bitmaps_for_chars()`.
+    These are written to a C header file: `./arduino_code/glyph_bitmaps.h`
+
+4.  Index Header Export
+    Write Index List:
+    The index_list, which maps phrases to character indices, is exported to another header file:
+    `./arduino_code/phrases_to_display.h`
+    This allows the microcontroller to reconstruct phrases using the glyphs.
+
+5.  Visual Debug Output
+    ASCII Preview of Glyphs:
+    The app calls `display_bitmap()` to render the combined character bitmaps as ASCII art in the terminal for quick visual debugging.
 
 
