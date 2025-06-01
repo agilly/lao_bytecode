@@ -12,10 +12,10 @@ Supports any script thanks to HarfBuzz and FreeType.
 ## Setup
 
 1. Clone the Repository:
-`git clone https://github.com/ ...` \n
-`cd compact_lao_messages_app` \n
+`git clone https://github.com/ ...` /n
+`cd compact_lao_messages_app` /n
 2. Create a Virtual Environment:
-`python3 -m venv .venv` \n
+`python3 -m venv .venv` /n
 `source .venv/bin/activate`   # On Windows: `.venv\Scripts\activate`
 3. Install Dependencies:
 `pip install -r requirements.txt`
