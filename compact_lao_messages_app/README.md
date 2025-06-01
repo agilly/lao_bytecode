@@ -77,4 +77,16 @@ Supports any script thanks to HarfBuzz and FreeType.
     ASCII Preview of Glyphs:  
     The app calls `display_bitmap()` to render the combined character bitmaps as ASCII art in the terminal for quick visual debugging.
 
+## Uploading to the Arduino. 
 
+1.  Arduino and OLED connection
+
+    Connect the OLED to the Arduino using standard I2C protocol, as shown in the image below
+
+
+    <img src="https://github.com/user-attachments/assets/4d621d55-6ca1-4c4c-ba90-db2016acd8e0" width="300">[^1]
+
+3. Open and upload the `scrolling_messages.ino` file to the arduino using the Arduino IDE.
+
+
+[^1]: Autodesk Instructables [link](https://www.instructables.com/OLED-I2C-DISPLAY-WITH-ARDUINO-Tutorial/).
