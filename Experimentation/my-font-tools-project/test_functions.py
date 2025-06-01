@@ -1,4 +1,4 @@
-def display_bitmap(data, row_width_bytes):
+def display_bitmap(data, row_width_bytes=4):
     row_width_bits = row_width_bytes * 8
     total_rows = len(data) // row_width_bytes
     
