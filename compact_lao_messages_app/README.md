@@ -12,8 +12,8 @@ Supports any script thanks to HarfBuzz and FreeType.
 ## Outputs:
 
 1. `./arduino_code/scrolling_messages.ino` : An example of code for displaying a scrolling message on an OLED screen
-2. `./arduino_code/glyph_bitmaps.h` : auto-generated header file, containing the bitmaps
-3. `./arduino_code/phrases_to_display.h` : auto-generated header file, containing the indexes into the bitmap list for each character of each phrase
+2. `./arduino_code/glyph_bitmaps.h` : auto-generated header file, containing the all the needed bitmaps compressed into one large bitmap (to save space)
+3. `./arduino_code/phrases_to_display.h` : auto-generated header file, containing, for each input phrase, a squential list of indexes into the overall character list
 
 ## Setup
 
