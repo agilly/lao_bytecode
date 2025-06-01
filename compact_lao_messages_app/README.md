@@ -38,12 +38,18 @@ Supports any script thanks to HarfBuzz and FreeType.
 1.  Input String Handling
     CSV Check:
     The app looks for `./input_files/input_strings.csv`, which stores Lao strings to convert.
-    Overwrite Prompt:
+
+    #### Overwrite Prompt:
     If the file exists, it asks the user whether to overwrite it.
+
     If the user chooses to overwrite (y), it:
+
     Prompts the user for new strings (`get_input_strings()`).
+
     Saves them to CSV using `save_strings_to_csv()`.
-    Otherwise, it loads the existing strings from the CSV.
+    
+    #### Otherwise:
+    It loads the existing strings from the CSV.
 
 2.  Character Analysis
     Build Unique Characters:
