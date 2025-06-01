@@ -33,8 +33,8 @@ def main():
     print("Writing index list to header file...")
     process_str.write_index_list_to_header(index_list, filename="./arduino_code/phrases_to_display.h")
 
-    print("displaying the whole bitmap...")
-    display_bitmap(bytes_list, 4)
+    # print("displaying the whole bitmap...")
+    # display_bitmap(bytes_list, 4)
 
 
 

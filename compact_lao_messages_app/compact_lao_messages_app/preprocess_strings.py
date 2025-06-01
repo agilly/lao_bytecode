@@ -5,6 +5,7 @@ generating index mappings, and exporting them for embedded C++ use.
 
 import csv
 import grapheme
+import os
 
 def decompose_string_to_clusters(s):
     """
@@ -169,6 +170,9 @@ def write_index_list_to_header(index_list, filename="./arduino_code/phrases_to_d
         f.write(f"const uint8_t num_phrases = {num_phrases};\n\n")
 
         f.write("#endif\n")
+
+    header_size_kb = os.path.getsize(filename) / 1024
+    print(f"Index header file size: {header_size_kb:.2f} KB")
 
 
     

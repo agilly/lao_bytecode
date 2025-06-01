@@ -143,4 +143,7 @@ def generate_bitmaps_for_chars(char_list, font_path="./font_files/NotoSansLao-Re
     # Clean up temp font file
     os.remove(tmp_font_path)
 
+    header_size_kb = os.path.getsize(output_header) / 1024
+    print(f"Bitmap header file size: {header_size_kb:.2f} KB")
+
     return all_bytes
