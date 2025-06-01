@@ -19,14 +19,14 @@ Main output files are found in the arduino_code folder
 
 ## Setup
 
-1. Clone the Repository
-git clone https://github.com/ ...
-cd compact_lao_messages_app
-2. Create a Virtual Environment
-python3 -m venv .venv
-source .venv/bin/activate   # On Windows: .venv\Scripts\activate
-3. Install Dependencies
-pip install -r requirements.txt
+1. Clone the Repository:
+`git clone https://github.com/ ...`
+`cd compact_lao_messages_app`
+2. Create a Virtual Environment:
+`python3 -m venv .venv`
+`source .venv/bin/activate`   # On Windows: `.venv\Scripts\activate`
+3. Install Dependencies:
+`pip install -r requirements.txt`
 Required packages include:
     * Pillow
     * freetype-py
