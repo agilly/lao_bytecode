@@ -11,11 +11,9 @@ Supports any script thanks to HarfBuzz and FreeType.
 
 ## Outputs:
 
-Main output files are found in the arduino_code folder
-
-1. scrolling_messages.ino : An example of code for displaying a scrolling message on an OLED screem
-2. glyph_bitmaps.h : auto-generated header file, containing the bitmaps
-3. phrases_to_display.h : auto-generated header file, containing the indexes into the bitmap list for each character of each phrase
+1. `./arduino_code/scrolling_messages.ino` : An example of code for displaying a scrolling message on an OLED screen
+2. `./arduino_code/glyph_bitmaps.h` : auto-generated header file, containing the bitmaps
+3. `./arduino_code/phrases_to_display.h` : auto-generated header file, containing the indexes into the bitmap list for each character of each phrase
 
 ## Setup
 
@@ -33,17 +31,15 @@ Required packages include:
     * uharfbuzz
     * grapheme
     * tqdm
-    * You may also need system-level dependencies like freetype-dev.
+You may also need system-level dependencies like freetype-dev.
 
 ## How to Run
 
-1. python3 run.py
+1. `python3 run.py`
 
 ### What Happens:
 If input.csv already exists, it is loaded and processed.
 If input.csv does not exist, you will be prompted to enter phrases one at a time in the terminal.
 Each phrase is broken into grapheme clusters and rasterized to 30×30 black & white bitmaps.
-### Outputs:
-./arduino_code/glyph_bitmaps.h
-./arduino_code/phrases_to_display.h
+
 
