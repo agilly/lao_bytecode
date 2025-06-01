@@ -38,8 +38,9 @@ You may also need system-level dependencies like freetype-dev.
 1. `python3 run.py`
 
 ### What Happens:
-If input.csv already exists, it is loaded and processed.
-If input.csv does not exist, you will be prompted to enter phrases one at a time in the terminal.
+If `input.csv` already exists, it is loaded and processed.
+If `input.csv` does not exist, you will be prompted to enter phrases one at a time in the terminal.
 Each phrase is broken into grapheme clusters and rasterized to 30×30 black & white bitmaps.
+The outputs header files, as specified above, are written into `\arduino_code`
 
 
