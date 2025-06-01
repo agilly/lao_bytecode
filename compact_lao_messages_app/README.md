@@ -38,7 +38,7 @@ Supports any script thanks to HarfBuzz and FreeType.
 1.  Input String Handling
 
     CSV Check:  
-    The app looks for `./input_files/input_strings.csv`, which stores Lao strings to convert.
+    The app looks for `./input_files/input_strings.csv`, which stores Lao strings to convert. An example input_strings.csv file for editing can be found under the input_files folder.
 
     Overwrite Prompt:  
     If the file exists, it asks the user whether to overwrite it.
