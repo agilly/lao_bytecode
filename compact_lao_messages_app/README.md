@@ -86,7 +86,7 @@ Supports any script thanks to HarfBuzz and FreeType.
 
     <img src="https://github.com/user-attachments/assets/4d621d55-6ca1-4c4c-ba90-db2016acd8e0" width="300">[^1]
 
-3. Open and upload the `scrolling_messages.ino` file to the arduino using the Arduino IDE.
+3. Open and upload the `arduino_code.ino` file to the arduino using the Arduino IDE.
 
 
 [^1]: Autodesk Instructables [link](https://www.instructables.com/OLED-I2C-DISPLAY-WITH-ARDUINO-Tutorial/).
