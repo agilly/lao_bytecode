@@ -13,6 +13,7 @@ Dependencies:
 - tqdm
 """
 
+
 from PIL import Image
 import freetype
 import uharfbuzz as hb
@@ -20,9 +21,9 @@ from tqdm import tqdm
 import os
 import tempfile
 
-def generate_bitmaps_for_chars(char_list, font_path="./font_files/NotoSansLao-Regular.ttf", output_header="./arduino_code/glyph_bitmaps.h"):
+def generate_bitmaps_for_chars(char_list, GLYPH_WIDTH = 30, GLYPH_HEIGHT = 30, font_path="./font_files/NotoSansLao-Regular.ttf", output_header="./arduino_code/glyph_bitmaps.h"):
     """
-    Generates 30x30 black-and-white bitmap images for each grapheme cluster in `char_list`,
+    Generates GLYPH_WIDTH x GLYPH_HEIGHT black-and-white bitmap images for each grapheme cluster in `char_list`,
     and exports the packed binary data as a C++ header file for use in embedded systems.
 
     Args:
@@ -34,7 +35,7 @@ def generate_bitmaps_for_chars(char_list, font_path="./font_files/NotoSansLao-Re
         list[int]: Flat list of all packed bitmap bytes across all input characters.
 
     The generated bitmaps are:
-        - 30x30 pixels
+        - GLYPH_WIDTH x GLYPH_HEIGHT pixels
         - 1-bit monochrome (packed: 8 pixels per byte)
         - Stored consecutively in a C++ array (`glyph_bitmaps[]`) with `PROGMEM` for AVR targets.
     """
@@ -96,16 +97,16 @@ def generate_bitmaps_for_chars(char_list, font_path="./font_files/NotoSansLao-Re
             y -= pos.y_advance // 64
 
         # Resize and convert to black and white
-        img_resized = image.resize((30, 30), Image.Resampling.NEAREST)
+        img_resized = image.resize((GLYPH_WIDTH, GLYPH_WIDTH), Image.Resampling.NEAREST)
         img_bw = img_resized.point(lambda p: 0 if p < 128 else 255, mode='1')
 
         # Convert image to byte array (1 bit per pixel packed in bytes)
         pixels = img_bw.load()
         byte_array = []
-        for y_row in range(30):
+        for y_row in range(GLYPH_HEIGHT):
             byte = 0
             bits_filled = 0
-            for x_col in range(30):
+            for x_col in range(GLYPH_WIDTH):
                 pix = pixels[x_col, y_row]
                 bit = 1 if pix == 0 else 0  # Black pixel = 1
                 byte = (byte << 1) | bit
