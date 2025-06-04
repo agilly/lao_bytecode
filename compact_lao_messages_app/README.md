@@ -43,7 +43,7 @@ Supports any script thanks to HarfBuzz and FreeType.
     Overwrite Prompt:  
     If the file exists, it asks the user whether to overwrite it.
     
-    If the user chooses to overwrite (y): 
+    If the user chooses to overwrite (y):  
     It prompts the user for new strings (`get_input_strings()`).
     Saves them to CSV using `save_strings_to_csv()`.
 
