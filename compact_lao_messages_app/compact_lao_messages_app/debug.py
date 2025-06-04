@@ -9,7 +9,7 @@ Useful for verifying the correctness of font rendering and character indexing
 when preparing data for embedded text display systems.
 """
 
-def display_bitmap(data, row_width_bytes=4):
+def display_bitmap(data, GLYPH_HEIGHT, GLYPH_WIDTH):
     """
     Displays a monochrome bitmap as ASCII art in the terminal.
 
@@ -23,7 +23,7 @@ def display_bitmap(data, row_width_bytes=4):
     Example output for one row:
         ███   █  █     ██
     """
-
+    row_width_bytes = ((GLYPH_WIDTH + 7)//8)
     total_rows = len(data) // row_width_bytes
     
     for row_idx in range(total_rows):
