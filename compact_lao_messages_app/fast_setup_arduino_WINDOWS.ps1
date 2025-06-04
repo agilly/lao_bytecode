@@ -1,41 +1,27 @@
 <#
 .SYNOPSIS
-    Setup Python virtual environment, install dependencies, and launch Arduino IDE with specified sketch.
+  Setup Python virtual environment, install dependencies, run the app, then open Arduino IDE.
 
 .DESCRIPTION
-    This script assumes you are running it from the root directory of the cloned Git repository.
-    It will:
-    - Change into the 'compact_lao_messages_app' folder
-    - Create and activate a Python virtual environment if not already present
-    - Install Python dependencies from requirements.txt
-    - Detect the Arduino IDE installation path
-    - Launch Arduino IDE opening the sketch located in 'compact_lao_messages_app\arduino_code'
-
-.PARAMETER None
-    No parameters needed. The script uses the current directory as the project root.
-<#
-.SYNOPSIS
-  Setup Python virtual environment, install dependencies, run Python app, then open Arduino IDE with sketch.
-
-.DESCRIPTION
-  This script should be run from the root of the cloned Git repo.
+  This script should be run from the root of the cloned GitHub repository.
   It will:
-    - Change directory to 'compact_lao_messages_app'
-    - Create and activate a Python virtual environment if not already present
+    - Change directory into 'compact_lao_messages_app'
+    - Create and activate a Python virtual environment if missing
     - Install required Python packages from requirements.txt
     - Run run.py inside the virtual environment
-    - Search for the Arduino IDE executable and open the Arduino sketch folder in it
-    - If Arduino IDE is missing, instruct the user to install it
-    - If Arduino sketch folder is missing, inform the user where it expects the sketch
+    - Search for the Arduino IDE executable and open the Arduino sketch folder
+    - If Arduino IDE is missing, it informs the user
+    - If the Arduino sketch folder is missing, it also provides guidance
 
 .EXAMPLE
   .\fast_setup_arduino_WINDOWS.ps1
 
 .NOTES
-  Requires PowerShell execution policy to allow running scripts.
+  Make sure PowerShell allows running local scripts:
+  Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 #>
 
-# Get current directory (should be repo root)
+# Get current directory (assumed repo root)
 $repoRoot = Get-Location
 $projectDir = Join-Path $repoRoot "compact_lao_messages_app"
 $venvPath = Join-Path $projectDir ".venv"
@@ -101,86 +87,19 @@ if ($foundArduinoExe) {
     }
 }
 
-# Launch Arduino IDE with the sketch folder or give info if missing
+# Launch Arduino IDE with the sketch folder or provide message
 if ($arduinoExe) {
     if (Test-Path $sketchFolder) {
         Write-Host "🚀 Launching Arduino IDE with sketch folder: $sketchFolder"
         Start-Process "`"$arduinoExe`"" "`"$sketchFolder`""
     } else {
-        Write-Host "❌ Arduino sketch folder not found at expected path: $sketchFolder"
-        Write-Host "ℹ️ Please verify your Arduino sketch files are located there."
+        Write-Host "❌ Arduino sketch folder not found at: $sketchFolder"
+        Write-Host "ℹ️ Make sure your Arduino files are in that folder before trying again."
     }
 } else {
-    Write-Host "❌ Arduino IDE not found. Please install it first from: https://www.arduino.cc/en/software"
+    Write-Host "❌ Arduino IDE not found."
+    Write-Host "📥 Please install it from: https://www.arduino.cc/en/software"
 }
 
-# Return to original directory if needed
+# Return to root
 Set-Location $repoRoot
-
-.EXAMPLE
-    PS C:\> cd C:\path\to\cloned\repo
-    PS C:\path\to\cloned\repo> .\setup_and_open_arduino.ps1
-
-.NOTES
-    - Ensure PowerShell execution policy allows running scripts:
-      Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-#>
-
-# Get current repo root directory (where PowerShell was opened)
-$repoRoot = (Get-Location).Path
-
-# Change directory to compact_lao_messages_app inside the repo
-$projectDir = Join-Path $repoRoot "compact_lao_messages_app"
-Set-Location $projectDir
-
-$venvPath = "$projectDir\.venv"
-$reqsFile = "$projectDir\requirements.txt"
-
-# Arduino sketch folder inside compact_lao_messages_app
-$sketchFolder = Join-Path $projectDir "arduino_code"
-
-# Attempt to locate Arduino IDE executable
-$arduinoPaths = @(
-    "$Env:ProgramFiles\Arduino\arduino.exe",
-    "$Env:ProgramFiles(x86)\Arduino\arduino.exe",
-    "$Env:LocalAppData\Programs\Arduino IDE\Arduino IDE.exe"
-)
-
-$arduinoExe = $null
-foreach ($path in $arduinoPaths) {
-    if (Test-Path $path) {
-        $arduinoExe = $path
-        break
-    }
-}
-
-if (-not $arduinoExe) {
-    Write-Host "❌ Arduino IDE not found. Please install it first: https://www.arduino.cc/en/software"
-    exit 1
-}
-
-# Create virtual environment if needed
-if (-not (Test-Path "$venvPath\Scripts\Activate.ps1")) {
-    Write-Host "🔧 Creating virtual environment..."
-    python -m venv $venvPath
-}
-
-# Activate virtual environment
-Write-Host "✅ Activating virtual environment..."
-. "$venvPath\Scripts\Activate.ps1"
-
-# Install requirements
-if (Test-Path $reqsFile) {
-    Write-Host "📦 Installing Python dependencies..."
-    pip install -r $reqsFile
-} else {
-    Write-Host "⚠️  No requirements.txt found."
-}
-
-# Launch Arduino IDE with the sketch folder
-if (Test-Path $sketchFolder) {
-    Write-Host "🚀 Launching Arduino IDE with sketch..."
-    Start-Process "`"$arduinoExe`"" "`"$sketchFolder`""
-} else {
-    Write-Host "❌ Sketch folder not found: $sketchFolder"
-}
