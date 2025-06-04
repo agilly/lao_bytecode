@@ -129,6 +129,8 @@ def generate_bitmaps_for_chars(char_list, GLYPH_WIDTH = 30, GLYPH_HEIGHT = 30, f
         guard = output_header.upper().replace('.', '_')
         f.write(f"#ifndef {guard}\n")
         f.write(f"#define {guard}\n\n")
+        f.write(f"#define GLYPH_WIDTH {GLYPH_WIDTH}\n")
+        f.write(f"#define GLYPH_HEIGHT {GLYPH_HEIGHT}\n\n")
         f.write("#include <avr/pgmspace.h>\n\n")
         f.write("static const uint8_t glyph_bitmaps[] PROGMEM = {\n")
 
