@@ -59,26 +59,42 @@ if (Test-Path $runPyFile) {
 # Locate Arduino IDE
 Write-Host "Searching for Arduino IDE..."
 
-# Recursively search Programs folder for arduino*.exe
-$foundArduinoExe = Get-ChildItem -Path "$Env:LocalAppData\Programs" -Filter "arduino*.exe" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+# Known install paths
+$arduinoPaths = @(
+    "$Env:ProgramFiles\Arduino\arduino.exe",
+    "$Env:ProgramFiles(x86)\Arduino\arduino.exe",
+    "$Env:LocalAppData\Programs\Arduino IDE\Arduino IDE.exe"
+)
 
-if (-not $foundArduinoExe) {
-    $fallbackPaths = @(
-        "$Env:ProgramFiles\Arduino\arduino.exe",
-        "$Env:ProgramFiles(x86)\Arduino\arduino.exe",
-        "$Env:LocalAppData\Programs\Arduino IDE\Arduino IDE.exe"
-    )
-    foreach ($path in $fallbackPaths) {
-        if (Test-Path $path) {
-            $foundArduinoExe = Get-Item $path
-            break
-        }
+# Fallback: resolve shortcut
+$startMenuLnk = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Arduino IDE.lnk"
+
+function Resolve-ShortcutTarget($shortcutPath) {
+    $shell = New-Object -ComObject WScript.Shell
+    $shortcut = $shell.CreateShortcut($shortcutPath)
+    return $shortcut.TargetPath
+}
+
+$arduinoExe = $null
+
+# Try known locations
+foreach ($path in $arduinoPaths) {
+    if (Test-Path $path) {
+        $arduinoExe = $path
+        break
+    }
+}
+
+# Try shortcut
+if (-not $arduinoExe -and (Test-Path $startMenuLnk)) {
+    $resolvedPath = Resolve-ShortcutTarget $startMenuLnk
+    if (Test-Path $resolvedPath) {
+        $arduinoExe = $resolvedPath
     }
 }
 
 # Launch or explain
-if ($foundArduinoExe) {
-    $arduinoExe = $foundArduinoExe.FullName
+if ($arduinoExe) {
     if (Test-Path $sketchFolder) {
         Write-Host "Launching Arduino IDE with sketch folder: $sketchFolder"
         Start-Process "`"$arduinoExe`"" "`"$sketchFolder`""
@@ -89,7 +105,11 @@ if ($foundArduinoExe) {
 } else {
     Write-Host "Arduino IDE not found."
     Write-Host "Please install it from: https://www.arduino.cc/en/software"
+    if (Test-Path $sketchFolder) {
+        Write-Host "You can then manually open the sketch folder: $sketchFolder"
+    }
 }
 
-# Return to repo root
-Set-Location $repoRoot
+# Restore working directory
+Set-Location $projectDir
+
