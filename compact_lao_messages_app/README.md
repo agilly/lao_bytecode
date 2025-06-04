@@ -31,7 +31,7 @@ Supports any script thanks to HarfBuzz and FreeType.
 
 ## Run
 
-1. `python3 run.py` # On Windows: `py -m run.py` (from within the `compact_lao_messages_app` directory)
+1. `python run.py` # For some Windows machines: `py -m run.py` (from within the `compact_lao_messages_app` directory)
 
 ### Main Loop Explanation
 
