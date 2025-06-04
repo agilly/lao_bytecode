@@ -1,3 +1,28 @@
+<#
+.SYNOPSIS
+    Setup Python virtual environment, install dependencies, and launch Arduino IDE with specified sketch.
+
+.DESCRIPTION
+    This script assumes you are running it from the root directory of the cloned Git repository.
+    It will:
+    - Change into the 'compact_lao_messages_app' folder
+    - Create and activate a Python virtual environment if not already present
+    - Install Python dependencies from requirements.txt
+    - Detect the Arduino IDE installation path
+    - Launch Arduino IDE opening the sketch located in 'compact_lao_messages_app\arduino_code'
+
+.PARAMETER None
+    No parameters needed. The script uses the current directory as the project root.
+
+.EXAMPLE
+    PS C:\> cd C:\path\to\cloned\repo
+    PS C:\path\to\cloned\repo> .\setup_and_open_arduino.ps1
+
+.NOTES
+    - Ensure PowerShell execution policy allows running scripts:
+      Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+#>
+
 # Get current repo root directory (where PowerShell was opened)
 $repoRoot = (Get-Location).Path
 
