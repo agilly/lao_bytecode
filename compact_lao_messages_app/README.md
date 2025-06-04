@@ -12,7 +12,7 @@ Supports any script thanks to HarfBuzz and FreeType.
 ## Setup
 
 1. Clone the Repository:  
-`git clone https://github.com/ ...`  
+`git clone https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git'
 `cd compact_lao_messages_app`  
 2. Create a Virtual Environment:  
 `python3 -m venv .venv`  

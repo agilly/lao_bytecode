@@ -5,7 +5,6 @@ import os
 
 def main():
 
-
     input_csv_path = './input_files/input_strings.csv'
 
     if os.path.exists(input_csv_path):
