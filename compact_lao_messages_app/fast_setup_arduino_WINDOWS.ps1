@@ -19,8 +19,7 @@
 #>
 
 # Store original repo root
-$repoRoot = Get-Location
-$projectDir = Join-Path $repoRoot "compact_lao_messages_app"
+$projectDir = Get-Location
 $venvPath = Join-Path $projectDir ".venv"
 $reqsFile = Join-Path $projectDir "requirements.txt"
 $runPyFile = Join-Path $projectDir "run.py"
