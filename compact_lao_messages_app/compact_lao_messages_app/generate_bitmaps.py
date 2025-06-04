@@ -73,10 +73,20 @@ def generate_bitmaps_for_chars(char_list, GLYPH_WIDTH = 30, GLYPH_HEIGHT = 30, f
         infos = buf.glyph_infos
         positions = buf.glyph_positions
 
+        # Find base consonant (first glyph typically)
+        base_idx = 0  # Default to first glyph
+        base_glyph = infos[base_idx].codepoint
+    
+        # Load base glyph metrics
+        face.load_glyph(base_glyph, freetype.FT_LOAD_DEFAULT)
+        base_width = face.glyph.metrics.horiAdvance // 64
+        base_left = face.glyph.metrics.horiBearingX // 64
         # Create a blank image
         image_width, image_height = 100, 100
         image = Image.new("L", (image_width, image_height), 255)
-        x, y = 25, 80  # Starting position
+        # CENTERING CALCULATION (Base consonant only)
+        x = (image_width - base_width) // 2 - base_left
+        y = 80  # Empirical baseline position (adjust as needed)
 
         for info, pos in zip(infos, positions):
             glyph_index = info.codepoint
@@ -88,11 +98,11 @@ def generate_bitmaps_for_chars(char_list, GLYPH_WIDTH = 30, GLYPH_HEIGHT = 30, f
             left = face.glyph.bitmap_left
 
             if w > 0 and h > 0:
-                glyph_image = Image.frombytes('L', (w, h), bytes(bitmap.buffer))
-                x_pos = x + (pos.x_offset // 64) + left
-                y_pos = y - (pos.y_offset // 64) - top
-                image.paste(0, (x_pos, y_pos), glyph_image)
-
+                glyph_img = Image.frombytes('L', (w, h), bytes(bitmap.buffer))
+                x_pos = x + (pos.x_offset // 64) + face.glyph.bitmap_left
+                y_pos = y - (pos.y_offset // 64) - face.glyph.bitmap_top
+                image.paste(0, (x_pos, y_pos), glyph_img)
+            
             x += pos.x_advance // 64
             y -= pos.y_advance // 64
 
