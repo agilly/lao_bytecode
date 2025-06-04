@@ -27,7 +27,16 @@ def main():
     print_char_and_index_lists(char_list, index_list)
 
     print("Generating bitmaps for characters...")
-    bytes_list = bitmap_gen.generate_bitmaps_for_chars(char_list, output_header="./arduino_code/glyph_bitmaps.h")
+    while True:
+        try:
+            GLYPH_HEIGHT = int(input("Enter chosen glyph height in pixels... (30 recommended) "))
+            break
+        except ValueError:
+            print("Please enter a valid integer.")
+
+    GLYPH_WIDTH = GLYPH_HEIGHT
+
+    bytes_list = bitmap_gen.generate_bitmaps_for_chars(char_list, GLYPH_WIDTH, GLYPH_HEIGHT, output_header="./arduino_code/glyph_bitmaps.h")
 
     print("Writing index list to header file...")
     process_str.write_index_list_to_header(index_list, filename="./arduino_code/phrases_to_display.h")
@@ -35,7 +44,7 @@ def main():
     user_input = input("Would you like to display the whole bitmap for debugging? (y/N): ").strip().lower()
     if user_input in ["y", "yes"]:
         print("Displaying the whole bitmap...")
-        display_bitmap(bytes_list, 4)  # Adjust width as needed
+        display_bitmap(bytes_list, GLYPH_HEIGHT, GLYPH_WIDTH)  # Adjust width as needed
 
 
 
