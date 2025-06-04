@@ -1,105 +1,115 @@
 <#
 .SYNOPSIS
-  Setup Python virtual environment, install dependencies, run the app, then open Arduino IDE.
+  Setup Python venv, install dependencies, run app, and launch Arduino IDE with sketch.
 
 .DESCRIPTION
-  This script should be run from the root of the cloned GitHub repository.
-  It will:
-    - Change directory into 'compact_lao_messages_app'
-    - Create and activate a Python virtual environment if missing
-    - Install required Python packages from requirements.txt
-    - Run run.py inside the virtual environment
-    - Search for the Arduino IDE executable and open the Arduino sketch folder
-    - If Arduino IDE is missing, it informs the user
-    - If the Arduino sketch folder is missing, it also provides guidance
+  Run this from the root of the GitHub repo. It:
+    - Navigates to `compact_lao_messages_app`
+    - Creates/activates a Python virtual environment
+    - Installs dependencies from requirements.txt
+    - Runs run.py
+    - Tries to launch Arduino IDE with the sketch folder
 
 .EXAMPLE
   .\fast_setup_arduino_WINDOWS.ps1
 
 .NOTES
-  Make sure PowerShell allows running local scripts:
-  Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+  If PowerShell blocks the script, run:
+    Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 #>
 
-# Get current directory (assumed repo root)
-$repoRoot = Get-Location
-$projectDir = Join-Path $repoRoot "compact_lao_messages_app"
+# Store original repo root
+$projectDir = Get-Location
 $venvPath = Join-Path $projectDir ".venv"
 $reqsFile = Join-Path $projectDir "requirements.txt"
 $runPyFile = Join-Path $projectDir "run.py"
 $sketchFolder = Join-Path $projectDir "arduino_code"
 
-# Change to project directory
+# Navigate to project directory
 Set-Location $projectDir
 
-# Create virtual environment if missing
+# Create virtual environment if needed
 if (-not (Test-Path "$venvPath\Scripts\Activate.ps1")) {
-    Write-Host "🔧 Creating virtual environment..."
+    Write-Host "Creating virtual environment..."
     python -m venv $venvPath
 } else {
-    Write-Host "✅ Virtual environment already exists."
+    Write-Host "Virtual environment already exists."
 }
 
-# Activate virtual environment
-Write-Host "✅ Activating virtual environment..."
+# Activate the virtual environment
+Write-Host "Activating virtual environment..."
 . "$venvPath\Scripts\Activate.ps1"
 
-# Install Python requirements
+# Install dependencies
 if (Test-Path $reqsFile) {
-    Write-Host "📦 Installing Python dependencies from requirements.txt..."
+    Write-Host "Installing Python dependencies..."
     pip install -r $reqsFile
 } else {
-    Write-Host "⚠️  requirements.txt not found at $reqsFile"
+    Write-Host "requirements.txt not found at $reqsFile"
 }
 
 # Run the Python app
 if (Test-Path $runPyFile) {
-    Write-Host "▶️ Running run.py..."
+    Write-Host "Running run.py..."
     python $runPyFile
 } else {
-    Write-Host "❌ run.py not found at $runPyFile"
+    Write-Host "run.py not found at $runPyFile"
 }
 
-# === Find Arduino IDE executable ===
+# Locate Arduino IDE
+Write-Host "Searching for Arduino IDE..."
 
-Write-Host "🔍 Searching for Arduino IDE executable..."
+# Known install paths
+$arduinoPaths = @(
+    "$Env:ProgramFiles\Arduino\arduino.exe",
+    "$Env:ProgramFiles(x86)\Arduino\arduino.exe",
+    "$Env:LocalAppData\Programs\Arduino IDE\Arduino IDE.exe"
+)
 
-# Search LocalAppData\Programs recursively for arduino*.exe
-$foundArduinoExe = Get-ChildItem -Path "$Env:LocalAppData\Programs" -Filter "arduino*.exe" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+# Fallback: resolve shortcut
+$startMenuLnk = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Arduino IDE.lnk"
 
-if ($foundArduinoExe) {
-    $arduinoExe = $foundArduinoExe.FullName
-    Write-Host "✅ Found Arduino IDE at: $arduinoExe"
-} else {
-    # Fallback common locations
-    $arduinoPaths = @(
-        "$Env:ProgramFiles\Arduino\arduino.exe",
-        "$Env:ProgramFiles(x86)\Arduino\arduino.exe",
-        "$Env:LocalAppData\Programs\Arduino IDE\Arduino IDE.exe"
-    )
-    $arduinoExe = $null
-    foreach ($path in $arduinoPaths) {
-        if (Test-Path $path) {
-            $arduinoExe = $path
-            Write-Host "✅ Found Arduino IDE at fallback path: $arduinoExe"
-            break
-        }
+function Resolve-ShortcutTarget($shortcutPath) {
+    $shell = New-Object -ComObject WScript.Shell
+    $shortcut = $shell.CreateShortcut($shortcutPath)
+    return $shortcut.TargetPath
+}
+
+$arduinoExe = $null
+
+# Try known locations
+foreach ($path in $arduinoPaths) {
+    if (Test-Path $path) {
+        $arduinoExe = $path
+        break
     }
 }
 
-# Launch Arduino IDE with the sketch folder or provide message
+# Try shortcut
+if (-not $arduinoExe -and (Test-Path $startMenuLnk)) {
+    $resolvedPath = Resolve-ShortcutTarget $startMenuLnk
+    if (Test-Path $resolvedPath) {
+        $arduinoExe = $resolvedPath
+    }
+}
+
+# Launch or explain
 if ($arduinoExe) {
     if (Test-Path $sketchFolder) {
-        Write-Host "🚀 Launching Arduino IDE with sketch folder: $sketchFolder"
+        Write-Host "Launching Arduino IDE with sketch folder: $sketchFolder"
         Start-Process "`"$arduinoExe`"" "`"$sketchFolder`""
     } else {
-        Write-Host "❌ Arduino sketch folder not found at: $sketchFolder"
-        Write-Host "ℹ️ Make sure your Arduino files are in that folder before trying again."
+        Write-Host "Arduino sketch folder not found at: $sketchFolder"
+        Write-Host "Please ensure the sketch files are inside: $sketchFolder"
     }
 } else {
-    Write-Host "❌ Arduino IDE not found."
-    Write-Host "📥 Please install it from: https://www.arduino.cc/en/software"
+    Write-Host "Arduino IDE not found."
+    Write-Host "Please install it from: https://www.arduino.cc/en/software"
+    if (Test-Path $sketchFolder) {
+        Write-Host "You can then manually open the sketch folder: $sketchFolder"
+    }
 }
 
-# Return to root
-Set-Location $repoRoot
+# Restore working directory
+Set-Location $projectDir
+
