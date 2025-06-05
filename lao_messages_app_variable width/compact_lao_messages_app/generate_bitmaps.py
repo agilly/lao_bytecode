@@ -172,12 +172,28 @@ def generate_bitmaps_for_chars(char_list, GLYPH_WIDTH = 30, GLYPH_HEIGHT = 30, f
 
         f.write("};\n\n")
         # Write glyph widths array
-        f.write("static const uint16_t glyph_widths[] PROGMEM = {\n")
+        f.write("const uint16_t glyph_widths[] = {\n")
 
         # Convert widths to strings and write in rows of 16
         for i in range(0, len(bitmap_widths), 16):
             line = ", ".join(str(width) for width in bitmap_widths[i:i+16])
             f.write(f"  {line},\n")
+
+        f.write("};\n\n")
+
+        # Generate an array of indexes into the bitmap
+        bitmap_start_indexes = []
+        current_index = 0
+        for i in range(len(bitmap_widths)):
+            bitmap_start_indexes.append(current_index)
+            current_index += bitmap_widths[i] * GLYPH_HEIGHT
+
+        # Write bitmap start indexes to a const uint16_t array
+        f.write("const uint16_t bitmap_starts[] = {\n")
+        for i in range(0, len(bitmap_start_indexes), 16):
+            line = ", ".join(str(idx) for idx in bitmap_start_indexes[i:i+16])
+            f.write(f"  {line},\n")
+            
 
         f.write("};\n\n")
 

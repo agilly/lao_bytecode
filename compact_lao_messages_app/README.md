@@ -15,7 +15,7 @@ Supports any script thanks to HarfBuzz and FreeType.
 `git clone https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git'
 `cd compact_lao_messages_app`  
 2. Create a Virtual Environment:  
-`python -m venv .venv`  
+`python3 -m venv .venv`  
 `source .venv/bin/activate`   # On Windows: `.venv\Scripts\activate`
 3. Install Dependencies:  
 `pip install -r requirements.txt`  
