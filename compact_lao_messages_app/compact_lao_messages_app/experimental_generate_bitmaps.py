@@ -13,7 +13,6 @@ Dependencies:
 - tqdm
 """
 
-
 from PIL import Image
 import freetype
 import uharfbuzz as hb
