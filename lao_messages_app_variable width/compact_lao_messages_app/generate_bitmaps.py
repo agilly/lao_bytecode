@@ -61,6 +61,7 @@ def generate_bitmaps_for_chars(char_list, GLYPH_WIDTH = 30, GLYPH_HEIGHT = 30, f
 
     # List to hold all bytes from all glyphs consecutively
     all_bytes = []
+    bitmap_widths = []
 
     # Progress bar for each character
     for char in tqdm(char_list, desc="Processing characters"):
@@ -82,10 +83,11 @@ def generate_bitmaps_for_chars(char_list, GLYPH_WIDTH = 30, GLYPH_HEIGHT = 30, f
         base_width = face.glyph.metrics.horiAdvance // 64
         base_left = face.glyph.metrics.horiBearingX // 64
         # Create a blank image
-        image_width, image_height = 100, 100
+        image_width, image_height = base_width, 100
+        wh_ratio = image_width / image_height
         image = Image.new("L", (image_width, image_height), 255)
         # CENTERING CALCULATION (Base consonant only)
-        x = (image_width - base_width) // 2 - base_left
+        x = 0
         y = 80  # Empirical baseline position (adjust as needed)
 
         for info, pos in zip(infos, positions):
@@ -106,9 +108,28 @@ def generate_bitmaps_for_chars(char_list, GLYPH_WIDTH = 30, GLYPH_HEIGHT = 30, f
             x += pos.x_advance // 64
             y -= pos.y_advance // 64
 
-        # Resize and convert to black and white
-        img_resized = image.resize((GLYPH_WIDTH, GLYPH_WIDTH), Image.Resampling.NEAREST)
-        img_bw = img_resized.point(lambda p: 0 if p < 128 else 255, mode='1')
+        # Resize glyph image
+        resized_width = int(GLYPH_HEIGHT * wh_ratio)
+        img_resized = image.resize((resized_width, GLYPH_HEIGHT), Image.Resampling.NEAREST)
+
+        # Compute padding: add 1/6th of resized_width to each side, then round up to nearest multiple of 8
+        pad_each_side = resized_width // 6
+        padded_width = resized_width + 2 * pad_each_side
+
+        # Round up padded_width to nearest multiple of 8
+        final_width = ((padded_width + 7) // 8) * 8
+        total_extra = final_width - resized_width
+        pad_left = total_extra // 2
+        pad_right = total_extra - pad_left
+
+        # Pad the image with white (255)
+        img_padded = Image.new("L", (final_width, GLYPH_HEIGHT), 255)
+        img_padded.paste(img_resized, (pad_left, 0))
+
+        # Convert to 1-bit black & white
+        img_bw = img_padded.point(lambda p: 0 if p < 128 else 255, mode='1')
+
+        bitmap_widths.append(final_width)
 
         # Convert image to byte array (1 bit per pixel packed in bytes)
         pixels = img_bw.load()
@@ -116,7 +137,7 @@ def generate_bitmaps_for_chars(char_list, GLYPH_WIDTH = 30, GLYPH_HEIGHT = 30, f
         for y_row in range(GLYPH_HEIGHT):
             byte = 0
             bits_filled = 0
-            for x_col in range(GLYPH_WIDTH):
+            for x_col in range(final_width):
                 pix = pixels[x_col, y_row]
                 bit = 1 if pix == 0 else 0  # Black pixel = 1
                 byte = (byte << 1) | bit
@@ -139,7 +160,6 @@ def generate_bitmaps_for_chars(char_list, GLYPH_WIDTH = 30, GLYPH_HEIGHT = 30, f
         guard = output_header.upper().replace('.', '_')
         f.write(f"#ifndef {guard}\n")
         f.write(f"#define {guard}\n\n")
-        f.write(f"#define GLYPH_WIDTH {GLYPH_WIDTH}\n")
         f.write(f"#define GLYPH_HEIGHT {GLYPH_HEIGHT}\n\n")
         f.write("#include <avr/pgmspace.h>\n\n")
         f.write("static const uint8_t glyph_bitmaps[] PROGMEM = {\n")
@@ -151,6 +171,16 @@ def generate_bitmaps_for_chars(char_list, GLYPH_WIDTH = 30, GLYPH_HEIGHT = 30, f
             f.write(f"{line},\n")
 
         f.write("};\n\n")
+        # Write glyph widths array
+        f.write("static const uint16_t glyph_widths[] PROGMEM = {\n")
+
+        # Convert widths to strings and write in rows of 16
+        for i in range(0, len(bitmap_widths), 16):
+            line = ", ".join(str(width) for width in bitmap_widths[i:i+16])
+            f.write(f"  {line},\n")
+
+        f.write("};\n\n")
+
         f.write(f"#endif // {guard}\n")
 
     # Clean up temp font file
