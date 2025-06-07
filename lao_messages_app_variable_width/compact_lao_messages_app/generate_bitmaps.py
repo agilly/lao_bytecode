@@ -21,7 +21,7 @@ from tqdm import tqdm
 import os
 import tempfile
 
-def generate_bitmaps_for_chars(char_list, GLYPH_WIDTH = 30, GLYPH_HEIGHT = 30, font_path="./font_files/NotoSansLao-Regular.ttf", output_header="./arduino_code/glyph_bitmaps.h"):
+def generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT = 30, font_path="./font_files/NotoSansLao-Regular.ttf", output_header="./arduino_code/glyph_bitmaps.h"):
     """
     Generates GLYPH_WIDTH x GLYPH_HEIGHT black-and-white bitmap images for each grapheme cluster in `char_list`,
     and exports the packed binary data as a C++ header file for use in embedded systems.
@@ -205,4 +205,4 @@ def generate_bitmaps_for_chars(char_list, GLYPH_WIDTH = 30, GLYPH_HEIGHT = 30, f
     header_size_kb = os.path.getsize(output_header) / 1024
     print(f"Bitmap header file size: {header_size_kb:.2f} KB")
 
-    return all_bytes
+    return all_bytes, bitmap_widths, bitmap_start_indexes
