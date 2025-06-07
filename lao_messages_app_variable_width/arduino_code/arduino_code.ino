@@ -68,9 +68,42 @@ void scrollPhrase(const uint8_t *lao_phrase, uint8_t len_phrase)
   }
 }
 
+void displayPhraseByIndex(int input) {
+  if (input >= 1 && input <= num_phrases) {
+  const uint8_t *lao_phrase = &all_phrases[phrase_starts[input - 1]];   // Get the chosen phrase data
+  uint8_t len_phrase = phrase_lengths[input-1];                         // Get the length of the chosen phrase
+  scrollPhrase(lao_phrase, len_phrase);                                 // Call the scroll function for this phrase        
+  }            
+} 
+
+
+//USE A DIFFERENT FUNCTION DEPENDING ON PROJECT SPECIFICS
+//Call displayPhraseByIndex(input) in your function
+void checkSerialInput() {
+  if (Serial.available()) {
+    String key_input = Serial.readStringUntil('\n');
+    key_input.trim();
+
+    if (key_input.length() && key_input.equals(String(key_input.toInt()))) {
+      int input = key_input.toInt();
+      if (input >= 1 && input <= num_phrases) {
+        displayPhraseByIndex(input);
+      } else{
+        Serial.println("Invalid index");
+      }
+    } else {
+      Serial.println("Invalid keyboard input");
+    }
+  }
+}
+
+
+
+
 // Arduino setup function (runs once)
 void setup()
 {
+  Serial.begin(9600);                        // Start serial communication at 9600 baud
   Wire.begin();                              // Initialize I2C communication
   display.begin(SSD1306_SWITCHCAPVCC, 0X3C); // Initialize OLED display (0X3C is common I2C address)
   display.clearDisplay();                    // Clear display buffer
@@ -79,13 +112,8 @@ void setup()
 }
 
 // Arduino loop function (runs repeatedly)
-void loop()
-{
-  // Loop through every phrase defined in phrases_to_display.h and display it
-  for (int i = 0; i < num_phrases; i++)
-  {
-    const uint8_t *lao_phrase = &all_phrases[phrase_starts[i]]; // Get the current phrase data
-    uint8_t len_phrase = phrase_lengths[i];                     // Get the length of the current phrase
-    scrollPhrase(lao_phrase, len_phrase);                       // Call the scroll function for this phrase
-  }
+void loop() {
+//checks whether there is a keyboard input and displays the associated phrase
+//replace with linking code relevant to project specifications
+  checkSerialInput();
 }
