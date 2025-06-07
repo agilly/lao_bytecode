@@ -113,7 +113,7 @@ def generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT = 30, font_path="./font_f
         img_resized = image.resize((resized_width, GLYPH_HEIGHT), Image.Resampling.NEAREST)
 
         # Compute padding: add 1/6th of resized_width to each side, then round up to nearest multiple of 8
-        pad_each_side = resized_width // 6
+        pad_each_side = resized_width // 3
         padded_width = resized_width + 2 * pad_each_side
 
         # Round up padded_width to nearest multiple of 8
@@ -186,7 +186,7 @@ def generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT = 30, font_path="./font_f
         current_index = 0
         for i in range(len(bitmap_widths)):
             bitmap_start_indexes.append(current_index)
-            current_index += bitmap_widths[i] * GLYPH_HEIGHT
+            current_index += ((bitmap_widths[i] + 7) // 8) * GLYPH_HEIGHT
 
         # Write bitmap start indexes to a const uint16_t array
         f.write("const uint16_t bitmap_starts[] = {\n")
