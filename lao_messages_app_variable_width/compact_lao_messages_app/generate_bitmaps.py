@@ -112,15 +112,12 @@ def generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT = 30, font_path="./font_f
         resized_width = int(GLYPH_HEIGHT * wh_ratio)
         img_resized = image.resize((resized_width, GLYPH_HEIGHT), Image.Resampling.NEAREST)
 
-        # Compute padding: add 1/6th of resized_width to each side, then round up to nearest multiple of 8
-        pad_each_side = resized_width // 3
-        padded_width = resized_width + 2 * pad_each_side
+        padded_width = resized_width 
 
         # Round up padded_width to nearest multiple of 8
         final_width = ((padded_width + 7) // 8) * 8
         total_extra = final_width - resized_width
         pad_left = total_extra // 2
-        pad_right = total_extra - pad_left
 
         # Pad the image with white (255)
         img_padded = Image.new("L", (final_width, GLYPH_HEIGHT), 255)

@@ -23,7 +23,7 @@ void scrollPhrase(const uint8_t* lao_phrase, uint8_t len_phrase){
   int scroll_offset = -SCREEN_WIDTH;   //first character to be displayed at rightmost point
   int total_scroll_width = 0;
   for (int i = 0; i < len_phrase; i++) {
-    total_scroll_width += glyph_widths[lao_phrase[i]] / 2;
+    total_scroll_width += glyph_widths[lao_phrase[i]];
   }
   while (scroll_offset <= total_scroll_width){
     display.clearDisplay();
@@ -38,7 +38,7 @@ void scrollPhrase(const uint8_t* lao_phrase, uint8_t len_phrase){
       uint8_t glyph_buffer[BYTES_PER_BITMAP];
       memcpy_P(glyph_buffer, glyph_bitmaps + bitmap_start, BYTES_PER_BITMAP); //loads the glyph buffer with a bitmap from the file
       display.drawBitmap(x, y, glyph_buffer, glyph_width, GLYPH_HEIGHT, SSD1306_WHITE); //draws a grapheme
-      x +=glyph_width/2; //moves along by glyph_width to the next grapheme position
+      x +=glyph_width; //moves along by glyph_width to the next grapheme position
     }
     display.display(); //display the word 
     delay(5);
