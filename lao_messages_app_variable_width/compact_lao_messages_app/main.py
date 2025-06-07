@@ -34,7 +34,7 @@ def main():
         except ValueError:
             print("Please enter a valid integer.")
 
-    bytes_list, bitmap_widths, bitmap_start_indexes = bitmap_gen.generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT, output_header="./arduino_code/glyph_bitmaps.h")
+    bytes_list, bitmap_widths, bitmap_start_indexes, unpadded_widths = bitmap_gen.generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT, output_header="./arduino_code/glyph_bitmaps.h")
 
     print("Writing index list to header file...")
     process_str.write_index_list_to_header(index_list, filename="./arduino_code/phrases_to_display.h")
@@ -42,7 +42,7 @@ def main():
     user_input = input("Would you like to display the whole bitmap for debugging? (y/N): ").strip().lower()
     if user_input in ["y", "yes"]:
         print("Displaying the whole bitmap...")
-        display_bitmap_row(bytes_list, GLYPH_HEIGHT, bitmap_widths, bitmap_start_indexes)  # Adjust width as needed
+        display_bitmap_row(bytes_list, GLYPH_HEIGHT, bitmap_widths, bitmap_start_indexes, unpadded_widths)  # Adjust width as needed
 
 
 

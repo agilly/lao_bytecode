@@ -12,7 +12,13 @@ when preparing data for embedded text display systems.
 import os
 from math import ceil
 
-def display_bitmap_row(data, GLYPH_HEIGHT, glyph_widths, bitmap_offsets):
+import os
+from math import ceil
+
+import os
+from math import ceil
+
+def display_bitmap_row(data, GLYPH_HEIGHT, glyph_widths, bitmap_offsets, unpadded_widths):
     """
     Displays multiple monochrome bitmaps side by side as ASCII art.
     If the glyphs don't fit on a single line, they are displayed in a grid
@@ -22,50 +28,52 @@ def display_bitmap_row(data, GLYPH_HEIGHT, glyph_widths, bitmap_offsets):
         data (list[int] or bytes): Packed binary image data (1-bit per pixel),
             glyphs stored row-by-row consecutively.
         GLYPH_HEIGHT (int): Height (in pixels) of each glyph (fixed).
-        glyph_widths (list[int]): List of glyph widths (in pixels) for each glyph.
+        glyph_widths (list[int]): List of glyph widths (in pixels) for each glyph (these are the byte-aligned widths).
         bitmap_offsets (list[int]): Start index (in bytes) of each glyph in `data`.
+        unpadded_widths (list[int]): List of the *true pixel widths* of each glyph's content
+                                      (before byte-alignment padding).
 
     Each glyph occupies ceil(width / 8) bytes per row and GLYPH_HEIGHT rows total.
     """
     terminal_width = os.get_terminal_size().columns
-    GLYPH_SPACING = 1 # Space between glyphs
+    GLYPH_SPACING = 0 # No extra space between bitmaps
 
-    # Prepare a list of (offset, width) for easier iteration
-    glyphs_info = list(zip(bitmap_offsets, glyph_widths))
+    # Prepare a list of (offset, byte_aligned_width, unpadded_width) for easier iteration
+    glyphs_info = list(zip(bitmap_offsets, glyph_widths, unpadded_widths))
 
     if not glyphs_info:
         return
 
-    # Calculate the effective width of the widest glyph including spacing for single-line fit check
-    # For grid layout, we need individual glyph widths
-    max_glyph_display_width = max(width for _, width in glyphs_info) + GLYPH_SPACING
+    # Calculate the effective width of the widest glyph's UNPADDED content
+    # This is used for grid layout calculation to determine how many 'visual' characters fit.
+    max_unpadded_width = max(unpadded_width for _, _, unpadded_width in glyphs_info) if glyphs_info else 1
     
-    # Check if all glyphs can fit on one line (approximately)
-    # This check is a bit rough, as individual glyphs have different widths.
-    # A more precise check would sum up individual widths.
-    # For simplicity, we'll assume a grid is better if the sum is too large.
-    
-    # Calculate total width if all glyphs were on one line
-    total_single_line_width = sum(width + GLYPH_SPACING for _, width in glyphs_info) - GLYPH_SPACING
+    # Calculate total width if all glyphs were on one line using their UNPADDED widths
+    total_single_line_width = sum(unpadded_width for _, _, unpadded_width in glyphs_info)
 
     if total_single_line_width <= terminal_width:
-        # Display all glyphs on a single line
+        # Display all glyphs on a single line, using their UNPADDED widths
         for row in range(GLYPH_HEIGHT):
             line = ""
-            for offset, width in glyphs_info:
-                bytes_per_row = ceil(width / 8)
+            for offset, byte_aligned_width, unpadded_width in glyphs_info:
+                bytes_per_row = ceil(byte_aligned_width / 8) # Use byte_aligned_width for data retrieval
                 row_start = offset + row * bytes_per_row
-                row_bytes = data[row_start : row_start + bytes_per_row]
-                row_bits = ''.join(format(byte, '08b') for byte in row_bytes)
-                line += ''.join('█' if bit == '1' else ' ' for bit in row_bits[:width])
-                line += ' ' * GLYPH_SPACING # Add space between glyphs
+                end_byte_index = min(row_start + bytes_per_row, len(data))
+                row_bytes = data[row_start : end_byte_index]
+                
+                if not row_bytes:
+                    row_bits = '0' * byte_aligned_width 
+                else:
+                    row_bits = ''.join(format(byte, '08b') for byte in row_bytes)
+                
+                # Take only the bits relevant to the UNPADDED width for display
+                line += ''.join('█' if bit == '1' else ' ' for bit in row_bits[:unpadded_width])
             print(line)
     else:
         # Determine how many glyphs fit on one row in the grid
-        # We'll base this on the widest glyph to ensure everything aligns
-        glyphs_per_grid_row = (terminal_width + GLYPH_SPACING) // max_glyph_display_width
+        # Based on the widest glyph's UNPADDED display width
+        glyphs_per_grid_row = (terminal_width // max_unpadded_width) if max_unpadded_width > 0 else 1
         
-        # Ensure at least one glyph per row
         if glyphs_per_grid_row == 0:
             glyphs_per_grid_row = 1 
 
@@ -78,25 +86,25 @@ def display_bitmap_row(data, GLYPH_HEIGHT, glyph_widths, bitmap_offsets):
             end_glyph_idx = min(start_glyph_idx + glyphs_per_grid_row, num_glyphs)
             current_grid_row_glyphs = glyphs_info[start_glyph_idx : end_glyph_idx]
 
-            # Find the max width in this specific grid row for padding
-            current_max_glyph_width = 0
-            if current_grid_row_glyphs:
-                current_max_glyph_width = max(width for _, width in current_grid_row_glyphs)
-
             # Iterate through each pixel row for the current grid row
             for pixel_row in range(GLYPH_HEIGHT):
                 line = ""
-                for offset, width in current_grid_row_glyphs:
-                    bytes_per_row = ceil(width / 8)
+                for offset, byte_aligned_width, unpadded_width in current_grid_row_glyphs:
+                    bytes_per_row = ceil(byte_aligned_width / 8)
                     row_start = offset + pixel_row * bytes_per_row
-                    row_bytes = data[row_start : row_start + bytes_per_row]
-                    row_bits = ''.join(format(byte, '08b') for byte in row_bytes)
+                    end_byte_index = min(row_start + bytes_per_row, len(data))
+                    row_bytes = data[row_start : end_byte_index]
                     
-                    glyph_line = ''.join('█' if bit == '1' else ' ' for bit in row_bits[:width])
+                    if not row_bytes:
+                        row_bits = '0' * byte_aligned_width
+                    else:
+                        row_bits = ''.join(format(byte, '08b') for byte in row_bytes)
                     
-                    # Pad glyph_line to the max width of glyphs in this grid row for alignment
-                    line += glyph_line.ljust(current_max_glyph_width)
-                    line += ' ' * GLYPH_SPACING # Add space between glyphs
+                    # Take only the bits relevant to the UNPADDED width for display
+                    glyph_line = ''.join('█' if bit == '1' else ' ' for bit in row_bits[:unpadded_width])
+                    
+                    # No ljust or explicit spacing. Glyphs will be exactly adjacent.
+                    line += glyph_line 
                 print(line)
             print() # Add a blank line between grid rows for better separation
 
