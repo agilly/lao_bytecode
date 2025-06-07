@@ -42,7 +42,7 @@ def main():
     user_input = input("Would you like to display the whole bitmap for debugging? (y/N): ").strip().lower()
     if user_input in ["y", "yes"]:
         print("Displaying the whole bitmap...")
-        display_bitmap_row(bytes_list, GLYPH_HEIGHT, bitmap_widths)  # Adjust width as needed
+        display_bitmap_row(bytes_list, GLYPH_HEIGHT, bitmap_widths, bitmap_start_indexes)  # Adjust width as needed
 
 
 

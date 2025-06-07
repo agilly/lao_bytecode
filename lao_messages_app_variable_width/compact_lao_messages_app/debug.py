@@ -9,58 +9,26 @@ Useful for verifying the correctness of font rendering and character indexing
 when preparing data for embedded text display systems.
 """
 
-# def display_bitmap(data, GLYPH_HEIGHT, GLYPH_WIDTH):
-#     """
-#     Displays a monochrome bitmap as ASCII art in the terminal.
-
-#     Each byte in `data` represents 8 pixels (MSB first). This function unpacks
-#     the bits and prints them using '█' for black pixels (1) and space for white (0).
-
-#     Args:
-#         data (list[int] or bytes): Packed binary image data (1-bit per pixel).
-#         row_width_bytes (int): Number of bytes per row (default is 4, i.e., 32 pixels wide).
-
-#     Example output for one row:
-#         ███   █  █     ██
-#     """
-#     row_width_bytes = ((GLYPH_WIDTH + 7)//8)
-#     total_rows = len(data) // row_width_bytes
-    
-#     for row_idx in range(total_rows):
-#         row_bytes = data[row_idx * row_width_bytes : (row_idx + 1) * row_width_bytes]
-#         row_bits = ''.join(format(byte, '08b') for byte in row_bytes)
-#         # Convert bits to ASCII art
-#         line = ''.join('█' if bit == '1' else ' ' for bit in row_bits)
-#         print(line)
-
-def display_bitmap_row(data, GLYPH_HEIGHT, glyph_widths):
+def display_bitmap_row(data, GLYPH_HEIGHT, glyph_widths, bitmap_offsets):
     """
     Displays multiple monochrome bitmaps side by side as ASCII art.
 
     Args:
-        data (list[int] or bytes): Packed binary image data (1-bit per pixel), 
+        data (list[int] or bytes): Packed binary image data (1-bit per pixel),
             glyphs stored row-by-row consecutively.
         GLYPH_HEIGHT (int): Height (in pixels) of each glyph (fixed).
         glyph_widths (list[int]): List of glyph widths (in pixels) for each glyph.
+        bitmap_offsets (list[int]): Start index (in bytes) of each glyph in `data`.
 
     Each glyph occupies ceil(width / 8) bytes per row and GLYPH_HEIGHT rows total.
     """
     from math import ceil
 
-    glyph_offsets = []
-    offset = 0
-    # Calculate byte size for each glyph and cumulative offsets
-    for width in glyph_widths:
-        bytes_per_row = ceil(width / 8)
-        glyph_size = bytes_per_row * GLYPH_HEIGHT
-        glyph_offsets.append((offset, width, bytes_per_row))
-        offset += glyph_size
-
     for row in range(GLYPH_HEIGHT):
         line = ""
-        for start_offset, width, bytes_per_row in glyph_offsets:
-            # Extract the bytes for this row of the glyph
-            row_start = start_offset + row * bytes_per_row
+        for offset, width in zip(bitmap_offsets, glyph_widths):
+            bytes_per_row = ceil(width / 8)
+            row_start = offset + row * bytes_per_row
             row_bytes = data[row_start : row_start + bytes_per_row]
             row_bits = ''.join(format(byte, '08b') for byte in row_bytes)
             line += ''.join('█' if bit == '1' else ' ' for bit in row_bits[:width])
