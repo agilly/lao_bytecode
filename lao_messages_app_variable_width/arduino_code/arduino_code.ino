@@ -25,7 +25,7 @@ void scrollPhrase(const uint8_t* lao_phrase, uint8_t len_phrase){
   for (int i = 0; i < len_phrase; i++) {
     total_scroll_width += glyph_widths[lao_phrase[i]] / 2;
   }
-  while (scroll_offset <= total_scroll_width * len_phrase / 2){
+  while (scroll_offset <= total_scroll_width){
     display.clearDisplay();
     int x = -scroll_offset;
     int y = (SCREEN_HEIGHT - GLYPH_HEIGHT)/2;  //y does not change

@@ -186,7 +186,7 @@ def generate_bitmaps_for_chars(char_list, GLYPH_WIDTH = 30, GLYPH_HEIGHT = 30, f
         current_index = 0
         for i in range(len(bitmap_widths)):
             bitmap_start_indexes.append(current_index)
-            current_index += bitmap_widths[i] * GLYPH_HEIGHT
+            current_index += ((bitmap_widths[i] + 7) // 8) * GLYPH_HEIGHT
 
         # Write bitmap start indexes to a const uint16_t array
         f.write("const uint16_t bitmap_starts[] = {\n")
