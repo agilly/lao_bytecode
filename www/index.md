@@ -7,23 +7,21 @@ Makerbox Lao is a collaborative space that fosters the development of technology
 
 
 <div>
-  <img src="assets/MakerBox logo.png" alt="MakerBox Lao Logo" width="160"/>
-  <img src="assets/farming in Laos.png" alt="Farming in Laos" width="650"/>
+  <img src="assets/MakerBox logo.png" alt="MakerBox Lao Logo" width="150"/>
+  <img src="assets/farming in Laos.png" alt="Farming in Laos" width="600"/>
 </div>
 Image left: MakerBox, n.d. | Image right: FAO, United Nations, n.d.
 
 
-#### **The Problem**
-The Lao language uses a combination of tone marks and vowel diacritics placed above or below a base consonant character. 
-<img src="assets/lao script.png" alt="MakerBox Lao Logo" width="800"/>
-https://www.omniglot.com/writing/lao.htm
+#### **The Problem** 
+<img src="assets/lao script.png" alt="MakerBox Lao Logo" width="700"/>
 
-An example Lao message is shown below. Note how some consonants (such as **ນີ້**) have both tone marks **and** vowel diacritics associated with it. 
-## **"ສະພາບອາກາດໃນຊ່ວງນີ້ໃນເຂດທີທ່ານຢູ່ແມ່ນຈະເລີ່ມມີຝົນຕົກໜັກ"**
+Omniglot, n.d., https://www.omniglot.com/writing/lao.htm
 
-On computers, this complexity is handled via vector fonts and shaping engines. However, for the agricultural monitoring and messaging system to be implemented at low cost and at scale, it must be done with microcontrollers with low processing power, connected to "dumb screens" with no complex graphical rendering ability. 
+The Lao language uses a combination of tone marks and vowel diacritics placed above or below a base consonant character. An example Lao message is shown below. Note how some consonants (such as **ນີ້**) have both tone marks **and** vowel diacritics associated with it. 
+### **"ສະພາບອາກາດໃນຊ່ວງນີ້ໃນເຂດທີທ່ານຢູ່ແມ່ນຈະເລີ່ມມີຝົນຕົກໜັກ"**
 
-Thus we were tasked with developing byte code font for the Lao language compatible with microcontrollers and OLED/E-Ink screens. 
+On computers, this complexity is handled via vector fonts and shaping engines. However, for the agricultural monitoring and messaging system to be implemented at low cost and at scale, it must be done via microcontrollers with low processing power, connected to "dumb screens" with no complex graphical rendering ability. We were tasked with developing byte code font for the Lao language compatible with microcontrollers and OLED/E-Ink screens. 
 
 #### **Our solution**
 Our solution involves pre-processing input phrases, generation of bitmaps of the unique characters and rendering logic for an OLED screen. Read more about the technical details of the solution [here](about.md).
