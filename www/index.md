@@ -8,12 +8,13 @@ Makerbox Lao is a collaborative space that fosters the development of technology
 
 <div>
   <img src="assets/MakerBox logo.png" alt="MakerBox Lao Logo" width="150"/>
-  <img src="assets/farming in Laos.png" alt="Farming in Laos" width="600"/>
+  <img src="assets/farming in Laos.png" alt="Farming in Laos" width="550"/>
 </div>
 Image left: MakerBox, n.d. | Image right: FAO, United Nations, n.d.
 
 
-#### **The Problem** 
+#### **The Problem with rendering Lao text on screens** 
+
 <img src="assets/lao script.png" alt="MakerBox Lao Logo" width="700"/>
 
 Omniglot, n.d., https://www.omniglot.com/writing/lao.htm
