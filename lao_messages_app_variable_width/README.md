@@ -4,17 +4,17 @@ This guide explains how to use the `fast_setup_arduino_LINUX.sh` script (and how
 
 ## Prerequisites
 
-**Python 3:** Ensure Python 3 is installed.
+**Python 3:** Ensure Python 3 is installed.  
     * For more details on installing Python 3, refer to the official Python website's [download page](https://www.python.org/downloads/linux/)
 
-**Git:** To clone the repository.
+**Git:** To clone the repository.  
     * Learn more about installing Git from the official [Git website](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 
 **Arduino IDE:** Recommended to be installed *before* starting this guide.
     * If not, follow the instructions at the official [Arduino Software page](https://www.arduino.cc/en/software).
 
 ## To run `fast_setup_arduino_LINUX.sh`
-
+edit
 1. Open your terminal and navigate to a suitable folder.  
 
     ```bash
