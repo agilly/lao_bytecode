@@ -1,25 +1,25 @@
-# Linux Setup Guide for lao_messages_app_variable_width
+# Linux Setup Guide for `lao_messages_app_variable_width`
 
 This guide explains how to use the `fast_setup_arduino_LINUX.sh` script (and how to setup manually if you prefer)
 
 ## Prerequisites
 
-* **Python 3:** Ensure Python 3 is installed.
-    * For more details on installing Python 3, refer to the official Python website's [download page](https://www.python.org/downloads/linux/)
+**Python 3:** Ensure Python 3 is installed.  
+    * For more details refer to the official [Python website](https://www.python.org/downloads/linux/)
 
-* **Git:** To clone the repository.
-    * Learn more about installing Git from the official [Git website](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+**Git:** Needed to clone the repository.  
+    * For more details visit the [Git website](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 
-* **Arduino IDE:** Recommended to be installed *before* starting this guide.
+**Arduino IDE:** Recommended to be installed *before* starting this guide.
     * If not, follow the instructions at the official [Arduino Software page](https://www.arduino.cc/en/software).
 
 ## To run `fast_setup_arduino_LINUX.sh`
 
 1. Open your terminal and navigate to a suitable folder.  
 
-    ```bash
-    cd /path/to/desired/folder
-    ```
+```bash
+cd /path/to/desired/folder
+```
 
 2. Clone the Repository:  
 
@@ -33,10 +33,15 @@ git clone https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-By
 cd 2025-MakerBox-Bytecode/lao_messages_app_variable_width
 ```
 
-4. Give permissions and the fast setup file!
+4. Give permissions
 
 ```bash
 chmod +x fast_setup_arduino_LINUX.sh
+```
+
+5. Run the setup wizard!
+
+```bash
 ./fast_setup_arduino_LINUX.sh
 ```
 
