@@ -7,14 +7,21 @@ Makerbox Lao is a collaborative space that fosters the development of technology
 
 
 <div>
-  <img src="assets/MakerBox logo.png" alt="MakerBox Lao Logo" width="200"/>
-  <img src="assets/farming in Laos.png" alt="Farming in Laos" width="800"/>
+  <img src="assets/MakerBox logo.png" alt="MakerBox Lao Logo" width="160"/>
+  <img src="assets/farming in Laos.png" alt="Farming in Laos" width="650"/>
 </div>
 Image left: MakerBox, n.d. | Image right: FAO, United Nations, n.d.
 
 
 #### **The Problem**
-The Lao language uses a combination of tone marks and vowel signs placed above or below a base character. On computers, this complexity is handled via vector fonts and shaping engines. However, for the agricultural monitoring and messaging system to be implemented at low cost and at scale, it must be done with microcontrollers with low processing power, connected to "dumb screens" with no complex graphical rendering ability. 
+The Lao language uses a combination of tone marks and vowel diacritics placed above or below a base consonant character. 
+<img src="assets/lao script.png" alt="MakerBox Lao Logo" width="800"/>
+https://www.omniglot.com/writing/lao.htm
+
+An example Lao message is shown below. Note how some consonants (such as **ນີ້**) have both tone marks **and** vowel diacritics associated with it. 
+## **"ສະພາບອາກາດໃນຊ່ວງນີ້ໃນເຂດທີທ່ານຢູ່ແມ່ນຈະເລີ່ມມີຝົນຕົກໜັກ"**
+
+On computers, this complexity is handled via vector fonts and shaping engines. However, for the agricultural monitoring and messaging system to be implemented at low cost and at scale, it must be done with microcontrollers with low processing power, connected to "dumb screens" with no complex graphical rendering ability. 
 
 Thus we were tasked with developing byte code font for the Lao language compatible with microcontrollers and OLED/E-Ink screens. 
 
