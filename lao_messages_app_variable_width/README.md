@@ -32,7 +32,7 @@ These first three steps are required for **all operating systems** and both setu
 2.  **Clone the Repository**
     Navigate to a suitable directory, then run:
     ```bash
-    git clone [https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git](https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git)
+    git clone https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git
     ```
 
 3.  **Navigate to the Project Folder**
