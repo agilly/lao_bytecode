@@ -145,7 +145,7 @@ def generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT = 30, font_path="./font_f
                         image.paste(0, (paste_x, paste_y), cropped_glyph_img)
             
             x += pos.x_advance // 64
-            y -= pos.y_advance // 64 # This y adjustment remains from your original code.
+            y -= pos.y_advance // 64 
 
         # Resize glyph image (remains unchanged)
         resized_width = int(GLYPH_HEIGHT * wh_ratio)
@@ -187,7 +187,6 @@ def generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT = 30, font_path="./font_f
 
         # Now, work with the cropped image for padding and byte conversion
         # The 'resized_width' variable name might be confusing here, but we're sticking to it
-        # as per the instruction not to change other parts.
         padded_width = cropped_img_bw.width # Use the width of the newly cropped image
         unpadded_widths.append(padded_width + math.ceil(GLYPH_HEIGHT * 1/30))
 
