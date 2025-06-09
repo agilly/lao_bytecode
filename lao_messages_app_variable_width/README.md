@@ -1,3 +1,166 @@
+# `lao_messages_app_variable_width` Setup Guide
+
+This guide explains how to set up and run the `lao_messages_app_variable_width` project on both Linux-based systems and Windows.
+
+---
+
+## **Prerequisites**
+
+Before you begin, please ensure you have the following software installed on your system.
+
+* **Python 3:** Required to run the application's backend scripts.
+    * Download from the official [Python website](https://www.python.org/downloads/).
+    * **Windows Users:** During installation, make sure to check the box that says **"Add Python to PATH"**.
+
+* **Git:** Needed to clone the project repository from GitHub.
+    * Install from the official [Git website](https://git-scm.com/downloads).
+    * **Windows Users:** We recommend using **Git Bash**, which is included with the Git for Windows installation, for a command-line experience similar to Linux.
+
+* **Arduino IDE:** Recommended to be installed to upload the code to your Arduino board.
+    * Download from the official [Arduino Software page](https://www.arduino.cc/en/software).
+
+---
+
+## **Linux & macOS Setup**
+
+### Method 1: Fast Setup Script ⚡
+
+This method uses the provided shell script to automate the setup process.
+
+1.  **Open Your Terminal:** Navigate to a suitable folder where you want to store the project.
+    ```bash
+    cd /path/to/your/folder
+    ```
+
+2.  **Clone the Repository:**
+    ```bash
+    git clone [https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git](https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git)
+    ```
+
+3.  **Navigate to Project Folder:**
+    ```bash
+    cd 2025-MakerBox-Bytecode/lao_messages_app_variable_width
+    ```
+
+4.  **Make the Script Executable:**
+    ```bash
+    chmod +x fast_setup_arduino_LINUX.sh
+    ```
+
+5.  **Run the Setup Script:**
+    ```bash
+    ./fast_setup_arduino_LINUX.sh
+    ```
+    The script will guide you through the rest of the setup.
+
+### Method 2: Manual Setup 🛠️
+
+Follow these steps if you prefer to set up the project manually.
+
+1.  **Create a Python Virtual Environment:** This isolates your project's dependencies.
+    ```bash
+    python3 -m venv .venv
+    ```
+
+2.  **Activate the Virtual Environment:**
+    ```bash
+    source .venv/bin/activate
+    ```
+    Your terminal prompt should now show `(.venv)`.
+
+3.  **Install Python Dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Run the Python Application:**
+    ```bash
+    python run.py
+    ```
+
+5.  **Launch Arduino IDE:**
+    Open the Arduino IDE and load the project sketch from:
+    `.../lao_messages_app_variable_width/arduino_code/`
+
+    You will need to open the main sketch file:
+    * `arduino_code.ino`
+
+6.  **Deactivate Virtual Environment:** When you are finished, you can exit the virtual environment:
+    ```bash
+    deactivate
+    ```
+
+---
+
+## **Windows Setup**
+
+Windows users should follow the manual setup instructions.
+
+### Manual Setup 🛠️
+
+1.  **Open a Terminal:** We recommend using **Git Bash** for these commands. You can also use Command Prompt (CMD) or PowerShell.
+
+2.  **Clone the Repository:** Navigate to a suitable folder and run:
+    ```bash
+    git clone [https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git](https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git)
+    ```
+
+3.  **Navigate to Project Folder:**
+    ```bash
+    cd 2025-MakerBox-Bytecode/lao_messages_app_variable_width
+    ```
+
+4.  **Create a Python Virtual Environment:**
+    ```bash
+    python -m venv .venv
+    ```
+
+5.  **Activate the Virtual Environment:** This command is different from Linux.
+    ```bash
+    # In Git Bash or PowerShell
+    source .venv/Scripts/activate
+
+    # Or in Windows Command Prompt (CMD)
+    .\.venv\Scripts\activate
+    ```
+    Your command prompt should now be prefixed with `(.venv)`.
+
+6.  **Install Python Dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+7.  **Run the Python Application:**
+    ```bash
+    python run.py
+    ```
+
+8.  **Launch Arduino IDE:**
+    Open the Arduino IDE and load the project sketch from:
+    `...\lao_messages_app_variable_width\arduino_code\`
+
+    You will need to open the main sketch file:
+    * `arduino_code.ino`
+
+9.  **Deactivate Virtual Environment:** When you are done, simply run:
+    ```bash
+    deactivate
+    ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Linux Setup Guide for `lao_messages_app_variable_width`
 
 This guide explains how to use the `fast_setup_arduino_LINUX.sh` script (and how to setup manually if you prefer)
