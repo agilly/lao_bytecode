@@ -1,6 +1,11 @@
 ---
-title: Landing page of the website
+title: Our Solution
 ---
-## About
+## How it works
 
-The aim of this project was to generate a bytecode for the Lao language for display on "dumb" screens with no rendering capability (eg.OLEDs and E-Ink)
+## Video demos
+
+## Compatibility with other technology
+
+
+
