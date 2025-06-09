@@ -154,7 +154,7 @@ def generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT = 30, font_path="./font_f
         # Convert to 1-bit black & white (remains unchanged)
         img_bw = img_resized.point(lambda p: 0 if p < 128 else 255, mode='1')
 
-        # --- START OF MANUAL HORIZONTAL CROPPING CODE ---
+        # --- START OF MANUAL HORIZONTAL CROPPING CODE --- much better than using pillow
         # Find the leftmost non-white column
         first_pixel_col = -1
         for x_col in range(img_bw.width):
@@ -185,19 +185,6 @@ def generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT = 30, font_path="./font_f
             cropped_img_bw = Image.new('1', (GLYPH_HEIGHT // 2, GLYPH_HEIGHT), 255)
         # --- END OF MANUAL HORIZONTAL CROPPING CODE ---
 
-        # --- Actual ASCII representation of the cropped bitmap ---
-        print(f"\n  ASCII representation (expected terminal width: {cropped_img_bw.width} chars):")
-        for y_row in range(cropped_img_bw.height):
-            line = ""
-            for x_col in range(cropped_img_bw.width):
-                # Pillow's '1' mode typically has 0 for black and 1 for white.
-                line += '█' if cropped_img_bw.getpixel((x_col, y_row)) == 0 else ' '
-            # Print with explicit delimiters and the actual length of the 'line' string
-            print(f"  ['{line}'] (len: {len(line)})") 
-        
-        print("-------------------------------------------\n")
-        # --- END VERIFICATION STEP ---
-
         # Now, work with the cropped image for padding and byte conversion
         # The 'resized_width' variable name might be confusing here, but we're sticking to it
         # as per the instruction not to change other parts.
@@ -215,17 +202,6 @@ def generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT = 30, font_path="./font_f
         
         # Final conversion to 1-bit black & white after padding
         img_final_bw = img_padded.point(lambda p: 0 if p < 128 else 255, mode='1')
-
-        print(f"\n  ASCII representation (expected terminal width (now padded)): {img_final_bw.width} chars):")
-        for y_row in range(img_final_bw.height):
-            line = ""
-            for x_col in range(img_final_bw.width):
-                # Pillow's '1' mode typically has 0 for black and 1 for white.
-                line += '█' if img_final_bw.getpixel((x_col, y_row)) == 0 else ' '
-            # Print with explicit delimiters and the actual length of the 'line' string
-            print(f"  ['{line}'] (len: {len(line)})") 
-        
-        print("-------------------------------------------\n")
 
         bitmap_widths.append(final_width)
 

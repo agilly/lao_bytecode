@@ -18,6 +18,9 @@ from math import ceil
 import os
 from math import ceil
 
+import os
+from math import ceil
+
 def display_bitmap_row(data, GLYPH_HEIGHT, glyph_widths, bitmap_offsets, unpadded_widths):
     """
     Displays multiple monochrome bitmaps side by side as ASCII art.
@@ -66,8 +69,15 @@ def display_bitmap_row(data, GLYPH_HEIGHT, glyph_widths, bitmap_offsets, unpadde
                 else:
                     row_bits = ''.join(format(byte, '08b') for byte in row_bytes)
                 
-                # Take only the bits relevant to the UNPADDED width for display
-                line += ''.join('█' if bit == '1' else ' ' for bit in row_bits[:unpadded_width])
+                # --- FIX START ---
+                # Convert the relevant bits to ASCII art. Slicing ensures we don't read past available bits.
+                glyph_art_part = ''.join('█' if bit == '1' else ' ' for bit in row_bits[:unpadded_width])
+                
+                # Pad with spaces to ensure the final width matches unpadded_width.
+                # This handles cases where unpadded_width is greater than byte_aligned_width.
+                glyph_line = glyph_art_part.ljust(unpadded_width)
+                # --- FIX END ---
+                line += glyph_line
             print(line)
     else:
         # Determine how many glyphs fit on one row in the grid
@@ -100,10 +110,15 @@ def display_bitmap_row(data, GLYPH_HEIGHT, glyph_widths, bitmap_offsets, unpadde
                     else:
                         row_bits = ''.join(format(byte, '08b') for byte in row_bytes)
                     
-                    # Take only the bits relevant to the UNPADDED width for display
-                    glyph_line = ''.join('█' if bit == '1' else ' ' for bit in row_bits[:unpadded_width])
+                    # --- FIX START ---
+                    # Convert the relevant bits to ASCII art. Slicing ensures we don't read past available bits.
+                    glyph_art_part = ''.join('█' if bit == '1' else ' ' for bit in row_bits[:unpadded_width])
                     
-                    # No ljust or explicit spacing. Glyphs will be exactly adjacent.
+                    # Pad with spaces to ensure the final width matches unpadded_width.
+                    # This handles cases where unpadded_width is greater than byte_aligned_width.
+                    glyph_line = glyph_art_part.ljust(unpadded_width)
+                    # --- FIX END ---
+                    
                     line += glyph_line 
                 print(line)
             print() # Add a blank line between grid rows for better separation
