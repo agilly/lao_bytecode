@@ -14,50 +14,58 @@ Before you begin, please ensure you have the following software installed on you
 
 * **Git:** Needed to clone the project repository from GitHub.
     * Install from the official [Git website](https://git-scm.com/downloads).
-    * **Windows Users:** We recommend using **Git Bash**, which is included with the Git for Windows installation, for a command-line experience similar to Linux.
+    * **Windows Users:** We recommend using **Git Bash**, which is included with the Git for Windows installation.
 
 * **Arduino IDE:** Recommended to be installed to upload the code to your Arduino board.
     * Download from the official [Arduino Software page](https://www.arduino.cc/en/software).
 
 ---
 
-## **Linux & macOS Setup**
+## **Step 1: Initial Project Setup (All Users)**
 
-### Method 1: Fast Setup Script ⚡
+These first three steps are required for **all operating systems** and both setup methods.
 
-This method uses the provided shell script to automate the setup process.
+1.  **Open Your Terminal**
+    * On Windows, we recommend opening **Git Bash**.
+    * On macOS or Linux, open your standard **Terminal**.
 
-1.  **Open Your Terminal:** Navigate to a suitable folder where you want to store the project.
+2.  **Clone the Repository:** Navigate to a suitable folder, then run:
     ```bash
-    cd /path/to/your/folder
+    git clone [https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git](https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git)
     ```
 
-2.  **Clone the Repository:**
-    ```bash
-    git clone (https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git)
-    ```
-
-3.  **Navigate to Project Folder:**
+3.  **Navigate to the Project Folder:**
     ```bash
     cd 2025-MakerBox-Bytecode/lao_messages_app_variable_width
     ```
 
-4.  **Make the Script Executable:**
+After completing these steps, proceed to the instructions for your specific operating system below.
+
+---
+
+## **Linux & macOS: Choose Your Method**
+
+Now, choose one of the two methods below.
+
+### Method 1: Fast Setup ⚡
+
+This method uses a shell script to automate the remaining setup.
+
+1.  **Make the Script Executable:**
     ```bash
     chmod +x fast_setup_arduino_LINUX.sh
     ```
 
-5.  **Run the Setup Script:**
+2.  **Run the Setup Script:**
     ```bash
     ./fast_setup_arduino_LINUX.sh
     ```
-    The script will guide you through the rest of the setup.
 
 ### Method 2: Manual Setup 🛠️
 
-Follow these steps if you prefer to set up the project manually.
+Follow these steps to set up the project manually.
 
-1.  **Create a Python Virtual Environment:** This isolates your project's dependencies.
+1.  **Create a Python Virtual Environment:**
     ```bash
     python3 -m venv .venv
     ```
@@ -78,44 +86,38 @@ Follow these steps if you prefer to set up the project manually.
     python run.py
     ```
 
-5.  **Launch Arduino IDE:**
-    Open the Arduino IDE and load the project sketch from:
-    `.../lao_messages_app_variable_width/arduino_code/`
-
-    You will need to open the main sketch file:
-    * `arduino_code.ino`
-
-6.  **Deactivate Virtual Environment:** When you are finished, you can exit the virtual environment:
+5.  **Deactivate Virtual Environment:** When finished, you can exit the environment:
     ```bash
     deactivate
     ```
 
 ---
 
-## **Windows Setup**
+## **Windows: Choose Your Method**
 
-Windows users should follow the manual setup instructions.
+Now, choose one of the two methods below.
 
-### Manual Setup 🛠️
+### Method 1: Fast Setup ⚡
 
-1.  **Open a Terminal:** We recommend using **Git Bash** for these commands. You can also use Command Prompt (CMD) or PowerShell.
+This method uses a PowerShell script to automate the remaining setup.
 
-2.  **Clone the Repository:** Navigate to a suitable folder and run:
-    ```bash
-    git clone [https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git](https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git)
+1.  **Run the Setup Script in PowerShell:**
+    * **Note:** You may need to adjust your system's execution policy first. If the script doesn't run, open PowerShell as an **Administrator** and run `Set-ExecutionPolicy RemoteSigned`. Press `Y` to confirm. You only need to do this once.
+    * In your regular (non-admin) terminal, run the script:
+    ```powershell
+    .\fast_setup_arduino_WINDOWS.ps1
     ```
 
-3.  **Navigate to Project Folder:**
-    ```bash
-    cd 2025-MakerBox-Bytecode/lao_messages_app_variable_width
-    ```
+### Method 2: Manual Setup 🛠️
 
-4.  **Create a Python Virtual Environment:**
+Follow these steps to set up the project manually.
+
+1.  **Create a Python Virtual Environment:**
     ```bash
     python -m venv .venv
     ```
 
-5.  **Activate the Virtual Environment:** This command is different from Linux.
+2.  **Activate the Virtual Environment:**
     ```bash
     # In Git Bash or PowerShell
     source .venv/Scripts/activate
@@ -125,31 +127,30 @@ Windows users should follow the manual setup instructions.
     ```
     Your command prompt should now be prefixed with `(.venv)`.
 
-6.  **Install Python Dependencies:**
+3.  **Install Python Dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
 
-7.  **Run the Python Application:**
+4.  **Run the Python Application:**
     ```bash
     python run.py
     ```
 
-8.  **Launch Arduino IDE:**
-    Open the Arduino IDE and load the project sketch from:
-    `...\lao_messages_app_variable_width\arduino_code\`
-
-    You will need to open the main sketch file:
-    * `arduino_code.ino`
-
-9.  **Deactivate Virtual Environment:** When you are done, simply run:
+5.  **Deactivate Virtual Environment:** When finished, you can exit the environment:
     ```bash
     deactivate
     ```
 
+---
 
+## **Final Step (All Users): Arduino IDE**
 
+After setting up the environment using one of the methods above:
 
+1.  **Launch the Arduino IDE.**
+2.  Open the project sketch from `.../lao_messages_app_variable_width/arduino_code/`
+3.  The main sketch file to open is `arduino_code.ino`.
 
 
 
