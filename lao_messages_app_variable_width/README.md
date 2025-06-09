@@ -177,4 +177,19 @@ The Arduino code in this project is highly portable to other screens thanks to t
 | Data files (`.h`) | Yes | Yes | None. The core data is 100% portable. |
 | `scrollPhrase()` | Yes | No | Works perfectly for LCD/OLED. Unsuitable for E-ink due to rapid updates. |
 | `staticPhrase()` (New) | Yes | Yes | Works perfectly for LCD/OLED. This is the ideal function to use for E-ink displays. |
-| Application Logic (`checkSerialInput`, etc.) | Yes | Yes | 100% portable. This logic is independent of the display hardware. |
+| Application Logic (`checkSerialInput`, etc.) | Yes | Yes | 100% portable. This logic is independent of the display hardware. |  
+
+## **Technical Details: Code Portability for Other Microcontrollers**
+
+| Code Aspect / Feature | Arduino (AVR - Uno/Nano) | ESP32 / ESP8266 | Raspberry Pi Pico (RP2040) |
+| :--- | :--- | :--- | :--- |
+| **Core C++ Logic** | **Baseline** | ✅ **Highly Portable** | ✅ **Highly Portable** |
+| | Your functions like `scrollPhrase` and `staticPhrase` will work without modification. | The logic is platform-independent and will compile and run as expected. | The logic is platform-independent and will compile and run as expected. |
+| **Libraries (Adafruit GFX)** | **Baseline** | ✅ **Fully Supported** | ✅ **Fully Supported** |
+| | Adafruit libraries are designed for AVR Arduinos. | Adafruit provides excellent support. Libraries are installed the same way via the Library Manager. | The official Arduino-Pico core fully supports Adafruit GFX and its drivers. |
+| **Hardware I2C (`Wire.h`)** | **Baseline** | ✅ **Highly Portable** | ✅ **Highly Portable** |
+| | Uses `Wire.begin()`. Pins are fixed (A4/A5 on Uno). | The `Wire` library API is the same. You can often use `Wire.begin(SDA_PIN, SCL_PIN)` to assign I2C to any GPIO pins. | The `Wire` library API is the same. I2C can be assigned to multiple different GPIO pin pairs. |
+| **Memory (`PROGMEM`)** | **Baseline** | ⚠️ **Action Required** (for best practice) | ⚠️ **Action Required** (for best practice) |
+| | **Required.** `PROGMEM` and `<avr/pgmspace.h>` are essential to store large data (bitmaps) in flash memory to save precious RAM (2KB on Uno). | **Optional.** These boards have far more RAM. For compatibility, the ESP32 Arduino core often defines `PROGMEM` to do nothing, so your code might compile as-is. However, the best practice is to remove `PROGMEM` and simply use `const`. | **Optional.** Similar to the ESP32, the Arduino-Pico core handles this. Best practice is to rely on `const` to place data in flash, as the compiler is much smarter on this ARM platform. |
+| **Pin Definitions** | **Baseline** | ⚠️ **Action Required** | ⚠️ **Action Required** |
+| | Uses standard Arduino pin numbers. | Pin numbers correspond to the ESP32's GPIO numbers (e.g., `GPIO21`, `GPIO22`). You must update these for your screen's wiring. | Pin numbers correspond to the Pico's GP numbers (e.g., `GP0`, `GP1`). You must update these. |
