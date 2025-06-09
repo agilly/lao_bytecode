@@ -68,7 +68,7 @@ void scrollPhrase(const uint8_t *lao_phrase, uint8_t len_phrase)
   }
 }
 
-
+//Function to display a static phrase
 void staticPhrase(const uint8_t *lao_phrase, uint8_t len_phrase) {
   display.clearDisplay(); // Clear the display for the phrase
   int x = 0;                                   // Leftmost x position for start
@@ -103,7 +103,7 @@ void staticPhrase(const uint8_t *lao_phrase, uint8_t len_phrase) {
 }
 
 
-
+//Function to retrieve the chosen phrase from memory and display it
 void displayPhraseByIndex(int input) {
   if (input >= 1 && input <= num_phrases) {
   const uint8_t *lao_phrase = &all_phrases[phrase_starts[input - 1]];   // Get the chosen phrase data
@@ -148,6 +148,7 @@ void setup()
   display.clearDisplay();                    // Clear display buffer
   display.display();                         // Push buffer to display (shows a blank screen)
   delay(2000);                               // Wait for 2 seconds
+  Serial.println("Enter the number corresponding to the phrase you'd like to display");
 }
 
 // Arduino loop function (runs repeatedly)
