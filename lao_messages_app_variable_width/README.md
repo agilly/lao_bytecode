@@ -1,3 +1,105 @@
+# Linux Setup Guide for lao_messages_app_variable_width
+
+This guide explains how to use the `fast_setup_arduino_LINUX.sh` script (and how to setup manually if you prefer)
+
+## Prerequisites
+
+* **Python 3:** Ensure Python 3 is installed.
+    * For more details on installing Python 3, refer to the official Python website's [download page](https://www.python.org/downloads/linux/)
+
+* **Git:** To clone the repository.
+    * Learn more about installing Git from the official [Git website](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+
+* **Arduino IDE:** Recommended to be installed *before* starting this guide.
+    * If not, follow the instructions at the official [Arduino Software page](https://www.arduino.cc/en/software).
+
+## To run `fast_setup_arduino_LINUX.sh`
+
+1. Open your terminal and navigate to a suitable folder.  
+
+    ```bash
+    cd /path/to/desired/folder
+    ```
+
+2. Clone the Repository:  
+
+```bash
+git clone https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git
+```
+
+3. Navigate into the repository and the `lao_messages_app_variable_width`
+
+```bash
+cd 2025-MakerBox-Bytecode/lao_messages_app_variable_width
+```
+
+4. Give permissions and the fast setup file!
+
+```bash
+chmod +x fast_setup_arduino_LINUX.sh
+./fast_setup_arduino_LINUX.sh
+```
+
+## Next steps (without using the script)
+
+1.  **Create a Python Virtual Environment:**
+    A virtual environment keeps your project's Python dependencies isolated, preventing conflicts with other Python projects or your system's Python installation.
+
+    ```bash
+    python3 -m venv .venv
+    ```
+
+2.  **Activate the Virtual Environment:**
+    You'll typically see `(.venv)` or a similar indicator in your terminal prompt, signifying that the virtual environment is active. This ensures that any Python commands you run use the dependencies within this isolated environment.
+
+    ```bash
+    source .venv/bin/activate
+    ```
+
+3.  **Install Python Dependencies:**
+    This command reads the `requirements.txt` file and installs all the necessary Python libraries that your project depends on into your active virtual environment.
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Run the Python Application:**
+    This starts your Python application (`run.py`).
+
+    ```bash
+    python run.py
+    ```
+
+5.  **Launch Arduino IDE:**
+    Open your Arduino IDE and load the project's sketch files located in the `2025-MakerBox-Bytecode/lao_messages_app_variable_width/arduino_code` folder.  
+
+    There will be: 
+    * arduino_code.ino
+    * glyph_bitmaps.h
+    * phrases_to_display.h
+
+6.  **Deactivate Virtual Environment:**
+    When you are finished, you can exit the virtual environment:
+
+    ```bash
+    deactivate
+    ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Compact Lao Messages App for Arduino
 
 This project provides a Python-based pipeline for:
