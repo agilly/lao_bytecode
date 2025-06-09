@@ -34,7 +34,7 @@ This method uses the provided shell script to automate the setup process.
 
 2.  **Clone the Repository:**
     ```bash
-    git clone [https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git](https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git)
+    git clone (https://github.com/Technology-for-the-Poorest-Billion/2025-MakerBox-Bytecode.git)
     ```
 
 3.  **Navigate to Project Folder:**
