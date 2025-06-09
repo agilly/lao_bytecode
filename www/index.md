@@ -1,12 +1,12 @@
 ---
-title: Landing page of the website
+title: Home
 ---
-
-## Introduction
-
-
+## Our collaborator MakerBox
+Makerbox Lao is a collaborative space that fosters the development of technology-driven solutions to various local challenges in Laos. Given that agriculture is a crucial part of Laos' economy that employs around 70% of the population(ASEAN Briefing, 2025), MakerBox is currently building a system to send actionable messages - such as irrigation alerts - to farmers via digital displays in rural areas.
 
 
+## The Problem
+The problem with rendering Lao text on d
 ### To configure your website:
 
 - The required files to run a basic website are included in the repository. We use here Jekyll to turn markdown files into html that will be automatically updated on the website. The component responsible for this is a GitHub action, which is specified in the folder .github/workflows. There is no need to change this file. However:
