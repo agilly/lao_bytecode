@@ -4,7 +4,7 @@
 
 .DESCRIPTION
   Run this from the root of the GitHub repo. It:
-    - Navigates to `compact_lao_messages_app`
+    - Navigates to `lao_messages_app_variable_width`
     - Creates/activates a Python virtual environment
     - Installs dependencies from requirements.txt
     - Runs run.py
