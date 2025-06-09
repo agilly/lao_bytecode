@@ -3,7 +3,8 @@ title: Home
 ---
 ## Our collaborator MakerBox
 Makerbox Lao is a collaborative space that fosters the development of technology-driven solutions to various local challenges in Laos. Given that agriculture is a crucial part of Laos' economy that employs around 70% of the population(ASEAN Briefing, 2025), MakerBox is currently building a system to send actionable messages - such as irrigation alerts - to farmers via digital displays in rural areas.
-
+<img src="assets/MakerBox logo.png" alt="MakerBox Lao Logo" width="800"/>
+<img src="assets/MakerBox language projects logo.png" alt="language projects logo" width="800"/>
 
 ## The Problem
 The problem with rendering Lao text on d
