@@ -1,6 +1,6 @@
-import compact_lao_messages_app.generate_bitmaps as bitmap_gen
-import compact_lao_messages_app.preprocess_strings as process_str
-from compact_lao_messages_app.debug import display_bitmap_row, print_char_and_index_lists
+import lao_messages_app_variable_width.generate_bitmaps as bitmap_gen
+import lao_messages_app_variable_width.preprocess_strings as process_str
+from lao_messages_app_variable_width.debug import display_bitmap_row, print_char_and_index_lists
 import os
 
 def main():
