@@ -1,4 +1,4 @@
-from compact_lao_messages_app.main import main
+from lao_messages_app_variable_width.main import main
 
 if __name__ == "__main__":
     main()
