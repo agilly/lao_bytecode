@@ -182,7 +182,7 @@ def generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT = 30, font_path="./font_f
         else: # Handle case of entirely white image (e.g., space character, or no black pixels found)
             # Create a small, entirely white placeholder with GLYPH_HEIGHT
             # Use a width that's typical for a space, e.g., GLYPH_HEIGHT // 2
-            cropped_img_bw = Image.new('1', (GLYPH_HEIGHT // 2, GLYPH_HEIGHT), 255)
+            cropped_img_bw = Image.new('1', (GLYPH_HEIGHT // 4, GLYPH_HEIGHT), 255)
         # --- END OF MANUAL HORIZONTAL CROPPING CODE ---
 
         # Now, work with the cropped image for padding and byte conversion
