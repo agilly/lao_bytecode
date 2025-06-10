@@ -251,6 +251,6 @@ void setup() {
 | **Memory (`PROGMEM`)** | **Baseline** | ⚠️ **Action Required** (for best practice) | ⚠️ **Action Required** (for best practice) |
 | | **Required.** `PROGMEM` and `<avr/pgmspace.h>` are essential to store large data (bitmaps) in flash memory to save precious RAM (2KB on Uno). | **Optional.** These boards have far more RAM. For compatibility, the ESP32 Arduino core often defines `PROGMEM` to do nothing, so your code might compile as-is. However, the best practice is to remove `PROGMEM` and simply use `const`. | **Optional.** Similar to the ESP32, the Arduino-Pico core handles this. Best practice is to rely on `const` to place data in flash, as the compiler is much smarter on this ARM platform. |
 | **Pin Definitions** | **Baseline** | ⚠️ **Action Required** | ⚠️ **Action Required** |
-| | Uses standard Arduino pin numbers. | Pin numbers correspond to the ESP32's GPIO numbers (e.g., `GPIO21`, `GPIO22`). You must update these for your screen's wiring in Wire.h(). | Pin numbers correspond to the Pico's GP numbers (e.g., `GP0`, `GP1`). You must update these in Wire.h() |
+| | Uses standard Arduino pin numbers. | Pin numbers correspond to the ESP32's GPIO numbers (e.g., `GPIO21`, `GPIO22`). You must update these for your screen's wiring in `Wire.h()`. | Pin numbers correspond to the Pico's GP numbers (e.g., `GP0`, `GP1`). You must update these in `Wire.h()` |
 
 </details>
