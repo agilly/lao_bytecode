@@ -248,8 +248,8 @@ void setup() {
 | **Core C++ Logic** | **Baseline** | ✅ **Highly Portable** | ✅ **Highly Portable** |
 | **Libraries (Adafruit GFX)** | **Baseline** | ✅ **Fully Supported** | ✅ **Fully Supported** |
 | **Hardware I2C (`Wire.h`)** <br>Refer to *More Guidance on Switching from I²C to SPI Display*| **Baseline** | ✅ **Highly Portable** | ✅ **Highly Portable** |
-| **Memory (`PROGMEM`)** | **Baseline** | ⚠️ **Action Required** (for best practice) | ⚠️ **Action Required** (for best practice) |
-| | **Required.** `PROGMEM` and `<avr/pgmspace.h>` are essential to store large data (bitmaps) in flash memory to save precious RAM (2KB on Uno). | **Optional.** These boards have far more RAM. For compatibility, the ESP32 Arduino core often defines `PROGMEM` to do nothing, so your code might compile as-is. However, the best practice is to remove `PROGMEM` and simply use `const`. | **Optional.** Similar to the ESP32, the Arduino-Pico core handles this. Best practice is to rely on `const` to place data in flash, as the compiler is much smarter on this ARM platform. |
+| **Memory (`PROGMEM` and `memcpy_P()`)** | ✅ Baseline — required |⚠️ **Action Required** — prefer `const` and `memcpy()` |⚠️ **Action Required** — use `const` and `memcpy()` |
+||**Required.** PROGMEM and <avr/pgmspace.h> are essential to store large data (bitmaps) in flash memory to save precious RAM (2KB on Uno). Requires `memcpy_P()` to read from flash. | These boards have far more RAM.`PROGMEM` is often ignored by ESP cores; use `const` instead. Replace `memcpy_P()` with `memcpy()` to read the data from memory. | `PROGMEM` unsupported — use `const` only. Replace `memcpy_P()` with `memcpy()`.|
 | **Pin Definitions** | **Baseline** | ⚠️ **Action Required** | ⚠️ **Action Required** |
 | | Uses standard Arduino pin numbers. | Pin numbers correspond to the ESP32's GPIO numbers (e.g., `GPIO21`, `GPIO22`). You must update these for your screen's wiring in `Wire.h()`. | Pin numbers correspond to the Pico's GP numbers (e.g., `GP0`, `GP1`). You must update these in `Wire.h()` |
 
