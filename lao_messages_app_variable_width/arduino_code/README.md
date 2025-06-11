@@ -19,7 +19,7 @@ There are 2 display options:
 * `staticPhrase` displays a static phrase on the screen (ideal for E-Ink screens or larger screens)
 
 ## Main Functions
-<img src="../www/assets/flowchart.png" alt="Flowchart" width="800"/>
+<img src="../../www/assets/flowchart.png" alt="Flowchart" width="800"/>
 This is an in-depth review of the core functions. 
 They are designed to be modular and can be adapted to different project specifics. 
 
