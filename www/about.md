@@ -2,7 +2,7 @@
 title: Our Solution
 ---
 ## How it works
-<img src="assets/flowchart.png" alt="System Flowchart" width="700"/>
+<img src="assets/flowchart_general.png" alt="System Flowchart" width="700"/>
 
 The flowchart outlines the overall logic of our solution. The first two steps are performed by a Python script on a computer and involve preprocessing input phrases to generate header files. These files are then used by a microcontroller to display text on a screen.
 
