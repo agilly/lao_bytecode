@@ -1,3 +1,5 @@
+Author: Oliver Lee
+
 # Project management plan
 
 Given the hybrid nature of our project with some of our team in Laos it is very important to be efficiently organised with effective communication. The team here in Cambridge keeps in touch constantly to track the progress of the project. We share this progress with the team in Laos as when we make it whilst receiving regular updates and information from the Laos side. Given the holistic nature of the project, we endevaour to work together as much in person and in tandem as possible.
