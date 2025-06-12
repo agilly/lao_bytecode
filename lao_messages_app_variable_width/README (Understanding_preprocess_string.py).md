@@ -5,7 +5,7 @@ Technical contributors: Oliver Lee
 `preprocess_strings.py` contains the utilities used for the first step in the process of displaying complex scripts such as Lao: processing the strings the user would like to display into individual displayable units, called graphemes. Later on, code developed by Oisín Conlon will convert these graphemes into bitmaps, ready for display on hardware using code developed by Diya Thomas.
 
 The wider project process is illustrated in the following flowchart:
-![Flowchart of project](./www/assets/overall_flow.png)
+![Flowchart of project](../www/assets/overall_flow.png)
 
 ## How it Works
 
