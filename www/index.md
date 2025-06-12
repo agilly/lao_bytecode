@@ -1,6 +1,7 @@
 ---
 title: Home
 ---
+Author: Diya Thomas
 # **Developing a Lao Bytecode**
 #### **Our collaborator MakerBox** 
 Makerbox Lao is a collaborative space that fosters the development of technology-driven solutions to various local challenges in Laos. Given that agriculture is a cornerstone of the Laotian economy that employs around 70% of the population (ASEAN Briefing, 2025), MakerBox is currently building a system to send actionable messages — such as irrigation alerts and weather warnings — to farmers via digital displays in rural areas. In a country where adverse weather can devastate crops, timely information and technology offer strong potential to improve farming efficiency.

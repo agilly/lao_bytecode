@@ -1,6 +1,7 @@
 ---
 title: Our Solution
 ---
+Author: Diya Thomas
 ## How it works
 <img src="assets/flowchart_general.png" alt="System Flowchart" width="700"/>
 
@@ -16,7 +17,7 @@ Eg. The phrase **ສະບາຍດີໂລກ** (hello world) gets processed i
 
 
 ### Step 2
-Each grapheme is passed to the `generate_bitmaps_for_chars` function, where it is rendered into an image using a TTF font and shaped using HarfBuzz. This image is then converted into a bitmap—a binary representation of the pixel data. The bitmap size is determined by the user-defined font size. The resulting data, including character bitmaps and phrase indexing information, is stored in header files, along with additional arrays that help the microcontroller interpret and retrieve the correct the bitmaps from memory. To assist with validation, we include a `display_bitmap_row` debugging function. This displays each rendered bitmap on the computer terminal so users can visually verify that the output is correct before flashing it to the microcontroller.
+Each grapheme is passed to the `generate_bitmaps_for_chars` function, where it is rendered into an image using a TTF font and shaped using HarfBuzz. This image is then converted into a bitmap—a binary representation of the pixel data. The resulting data, including character bitmaps and phrase indexing information, is stored in header files, along with additional arrays that help the microcontroller interpret and retrieve the correct the bitmaps from memory. To assist with validation, we include a `display_bitmap_row` debugging function. This displays each rendered bitmap on the computer terminal so users can visually verify that the output is correct before flashing it to the microcontroller.
 
 The Bitmap stored in a byte array:
 
@@ -32,8 +33,14 @@ The Arduino reads the header files and displays the selected phrase using one of
 
 In our hello world example from above, there is only 1 phrase loaded to the arduino - so you would type 1 into the Serial monitor to display it.
 
+<img src="assets/serial monitor 1.png" alt="Serial monitor ourput" width="500"/>
+
 ## Video Demos
 The system supports both static and scrolling text. Demonstration videos can be found below:
 
+<img src="assets/static hello world.jpg" alt="scrolling hello world displayed" width="200"/>
+
+[Watch scrolling video - Click to download](assets/hello_world.mp4)
+
 ## Compatibility
-Our solution supports variable font sizes, multiple languages (via user-provided TTF fonts), and a variety of screen types. It uses standard Arduino functions and is modular enough to be adapted to other microcontrollers or applications. Installation is simple: run the setup script to install all required libraries, upload your CSV file,  type `python run.py` in terminal, and connect your display to the microcontroller.
+Our solution supports variable font sizes and styles(via user-provided TTF fonts), and a variety of screen types. It uses standard Arduino functions and is modular enough to be adapted to other microcontrollers or applications. Installation is simple: run the setup script to install all required libraries, upload your CSV file,  type `python run.py` in terminal, and connect your display to the microcontroller.

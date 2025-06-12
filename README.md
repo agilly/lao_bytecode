@@ -1,6 +1,6 @@
-# Project Template
-This project is for the MakerBox-Bytecode
+# Understanding the Project Structure
+Author: Oliver Lee
 
+The following flowchart should help you navigate the Lao Bytecode project:
 
-
-USE THE INNER README INSIDE compact_lao_messages_app
+![Flowchart of file system](./www/assets/file_description.png)

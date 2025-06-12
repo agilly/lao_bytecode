@@ -25,7 +25,6 @@ venv/
 *~
 
 # Image output (bitmaps, renders, etc.)
-*.png
 *.jpg
 *.jpeg
 *.bmp
