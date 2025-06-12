@@ -1,6 +1,7 @@
 ---
 title: Our Solution
 ---
+Author: Diya Thomas
 ## How it works
 <img src="assets/flowchart_general.png" alt="System Flowchart" width="700"/>
 
@@ -35,5 +36,9 @@ In our hello world example from above, there is only 1 phrase loaded to the ardu
 ## Video Demos
 The system supports both static and scrolling text. Demonstration videos can be found below:
 
+<img src="assets/static hello world.jpg" alt="scrolling hello world displayed" width="200"/>
+
+[Watch scrolling video - Click to download](assets/hello_world.mp4)
+
 ## Compatibility
-Our solution supports variable font sizes, multiple languages (via user-provided TTF fonts), and a variety of screen types. It uses standard Arduino functions and is modular enough to be adapted to other microcontrollers or applications. Installation is simple: run the setup script to install all required libraries, upload your CSV file,  type `python run.py` in terminal, and connect your display to the microcontroller.
+Our solution supports variable font sizes and styles(via user-provided TTF fonts), and a variety of screen types. It uses standard Arduino functions and is modular enough to be adapted to other microcontrollers or applications. Installation is simple: run the setup script to install all required libraries, upload your CSV file,  type `python run.py` in terminal, and connect your display to the microcontroller.
