@@ -102,3 +102,15 @@ The current system expects the following hardware:
 If you are using **any other hardware, refer to this [README](../../lao_messages_app_variable_width/README_Hardware_Details.md).**
 
 A dropdown contains all the relevant modification tables (interfacing with SPI instead, different microcontrollers, different screen types ect.).
+
+## Evaluation of solution
+
+* The code provides flexible functions to render either static or scrolling text, depending on the application requirements.
+
+* It is highly modular, making it easy to adapt to different use cases or hardware configurations.
+
+* The codebase is well-commented, and there is supporting documentation on electrical wiring and software functionality.
+
+* Limitation: The current system does not auto-detect connected hardware — the user must manually modify the code to match their setup.
+
+* Future improvement: Implement a hardware scanner or detection mechanism that automatically identifies connected devices (e.g., display type) and configures the code accordingly.
