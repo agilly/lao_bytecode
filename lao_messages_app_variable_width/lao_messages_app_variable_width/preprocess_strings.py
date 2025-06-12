@@ -149,7 +149,7 @@ def write_index_list_to_header(index_list, filename="./arduino_code/phrases_to_d
         f.write("#define PHRASES_TO_DISPLAY_H\n\n")
 
         # Write all_phrases
-        f.write("const uint8_t all_phrases[] = {\n")
+        f.write("const uint8_t all_phrases[] PROGMEM = {\n")
         for phrase in index_list:
             f.write("    ")
             f.write(", ".join(str(i) for i in phrase))
@@ -157,12 +157,12 @@ def write_index_list_to_header(index_list, filename="./arduino_code/phrases_to_d
         f.write("};\n\n")
 
         # Write phrase_starts
-        f.write("const uint8_t phrase_starts[] = {")
+        f.write("const uint8_t phrase_starts[] PROGMEM = {")
         f.write(", ".join(str(s) for s in starts))
         f.write("};     // starting index of each phrase\n")
 
         # Write phrase_lengths
-        f.write("const uint8_t phrase_lengths[] = {")
+        f.write("const uint8_t phrase_lengths[] PROGMEM = {")
         f.write(", ".join(str(l) for l in lengths))
         f.write("};    // length of each phrase\n")
 
