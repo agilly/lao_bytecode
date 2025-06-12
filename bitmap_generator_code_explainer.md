@@ -4,7 +4,7 @@
 Author: Oisín Conlon
 
 To understand the code for the glyph bitmap generator, here is a step by step guide:
-This Python script generates 1-bit black-and-white glyph bitmaps from a list of grapheme clusters (characters or syllables) that come from Oli's preprocessing code, shapes them using HarfBuzz (the typesetter), renders them with FreeType (the printer), and exports the bitmaps to a C++ header file for use in embedded systems like Arduino.
+This Python script generates 1-bit black-and-white glyph bitmaps from a list of grapheme clusters (characters or syllables) that come from Oli's preprocessing code, shapes them using HarfBuzz (the typesetter), renders them with FreeType (the printer), and exports the bitmaps to a C++ header file for use in embedded systems like Arduino and is implement through Diya's Arduino code.
 
 ---
 
