@@ -245,7 +245,7 @@ def generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT = 30, font_path="./font_f
 
         f.write("};\n\n")
         # Write glyph widths array
-        f.write("const uint16_t glyph_widths[] = {\n")
+        f.write("const uint16_t glyph_widths[] PROGMEM = {\n")
 
         # Convert widths to strings and write in rows of 16
         for i in range(0, len(bitmap_widths), 16):
@@ -255,7 +255,7 @@ def generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT = 30, font_path="./font_f
         f.write("};\n\n")
 
         # Write unpadded_widths array
-        f.write("const uint16_t unpadded_widths[] = {\n")
+        f.write("const uint16_t unpadded_widths[] PROGMEM = {\n")
 
         # Convert widths to strings and write in rows of 16
         for i in range(0, len(unpadded_widths), 16):
@@ -272,7 +272,7 @@ def generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT = 30, font_path="./font_f
             current_index += ((bitmap_widths[i] + 7) // 8) * GLYPH_HEIGHT
 
         # Write bitmap start indexes to a const uint16_t array
-        f.write("const uint16_t bitmap_starts[] = {\n")
+        f.write("const uint16_t bitmap_starts[] PROGMEM = {\n")
         for i in range(0, len(bitmap_start_indexes), 16):
             line = ", ".join(str(idx) for idx in bitmap_start_indexes[i:i+16])
             f.write(f"  {line},\n")
