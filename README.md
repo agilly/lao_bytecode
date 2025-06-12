@@ -11,9 +11,9 @@ Links to READMEs:
 
 [README Code Setup Guide](lao_messages_app_variable_width/README%20%28Code_Setup_Guide%29.md)
 
-[Understanding preprocess_string.py](lao_messages_app_variable_width/README%20%28Understanding_preprocess_string.py%29.md)
+[README Understanding preprocess_string.py](lao_messages_app_variable_width/README%20%28Understanding_preprocess_string.py%29.md)
 
-[Arduino Code README](lao_messages_app_variable_width/arduino_code/README.md)
+[README Arduino Code](lao_messages_app_variable_width/arduino_code/README.md)
 
 
 
