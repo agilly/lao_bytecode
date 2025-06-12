@@ -86,7 +86,6 @@ This method uses a shell script to automate the entire setup process.
     ./fast_setup_arduino_LINUX.sh
     ```
 </details>
-<br>
 
 <details>
 <summary>Method 2: Manual Setup</summary>
@@ -162,8 +161,6 @@ This method uses a PowerShell script to automate the entire setup process.
     The script will take care of creating the Python virtual environment, installing Python packages, launching the application, and opening the Arduino IDE for you.
 
 </details>
-
-<br>
 
 <details>
 <summary>Method 2: Manual Setup</summary>
