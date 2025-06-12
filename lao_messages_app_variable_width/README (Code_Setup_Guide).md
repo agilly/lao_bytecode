@@ -70,7 +70,7 @@ Choose one of the two methods below. The fast setup is recommended for its simpl
 <details>
 <summary>Method 1: Fast Setup</summary>
 
-### Method 1: Fast Setup ⚡
+### Method 1: Fast Setup
 
 This method uses a shell script to automate the entire setup process.
 
