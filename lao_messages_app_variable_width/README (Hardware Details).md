@@ -80,14 +80,19 @@ void setup() {
 
 ## **Technical Details: Code Portability for Other Microcontrollers**
 
+This guide details the specific changes required to port your Arduino AVR code to ESP32/ESP8266 and Raspberry Pi Pico (RP2040) boards.
+
 | Code Aspect / Feature | Arduino (AVR - Uno/Nano) | ESP32 / ESP8266 | Raspberry Pi Pico (RP2040) |
 | :--- | :--- | :--- | :--- |
 | **Core C++ Logic** | **Baseline** | ✅ **Highly Portable** | ✅ **Highly Portable** |
-| **Libraries (Adafruit GFX)** | **Baseline** | ✅ **Fully Supported** | ✅ **Fully Supported** |
-| **Hardware I2C (`Wire.h`)** <br>Refer to *More Guidance on Switching from I²C to SPI Display*| **Baseline** | ✅ **Highly Portable** | ✅ **Highly Portable** |
-| **Memory (`PROGMEM` and `memcpy_P()`)** | ✅ Baseline — required |⚠️ **Action Required** — prefer `const` and `memcpy()` |⚠️ **Action Required** — use `const` and `memcpy()` |
-||**Required.** PROGMEM and <avr/pgmspace.h> are essential to store large data (bitmaps) in flash memory to save precious RAM (2KB on Uno). Requires `memcpy_P()` to read from flash. | These boards have far more RAM.`PROGMEM` is often ignored by ESP cores; use `const` instead. Replace `memcpy_P()` with `memcpy()` to read the data from memory. | `PROGMEM` unsupported — use `const` only. Replace `memcpy_P()` with `memcpy()`.|
-| **Pin Definitions** | **Baseline** | ⚠️ **Action Required** | ⚠️ **Action Required** |
-| | Uses standard Arduino pin numbers. | Pin numbers correspond to the ESP32's GPIO numbers (e.g., `GPIO21`, `GPIO22`). You must update these for your screen's wiring in `Wire.h()`. | Pin numbers correspond to the Pico's GP numbers (e.g., `GP0`, `GP1`). You must update these in `Wire.h()` |
+| | The fundamental logic (loops, functions, variables) is standard C++ and requires no changes. | The fundamental logic is standard C++ and requires no changes. |
+| **Libraries (Adafruit GFX & SSD1306)** | **Baseline** | ✅ **Fully Supported** | ✅ **Fully Supported** |
+| | Adafruit libraries are the standard for this hardware. | These libraries are fully compatible. You can install them using the Arduino IDE's Library Manager for the ESP32 board profile. | These libraries are fully compatible. You can install them using the Arduino IDE's Library Manager for the Pico board profile. |
+| **Hardware I2C (`Wire.h`)** | **Baseline** | ⚠️ **Action Required** | ⚠️ **Action Required** |
+| | Uses `Wire.begin()` with fixed I2C pins (SDA: A4, SCL: A5). | You must specify the I2C pins. Change `Wire.begin()` to `Wire.begin(SDA_PIN, SCL_PIN)`, replacing `SDA_PIN` and `SCL_PIN` with the actual GPIO numbers you have wired (e.g., `21`, `22`). | You must specify the I2C pins. Change `Wire.begin()` to `Wire.begin(SDA_PIN, SCL_PIN)`, replacing `SDA_PIN` and `SCL_PIN` with the actual GP numbers you have wired (e.g., `0`, `1`). |
+| **Memory (`PROGMEM` etc.)** | ✅ **Baseline — Required** | ⚠️ **Action Required** | ⚠️ **Action Required** |
+| | `PROGMEM` and `<avr/pgmspace.h>` are **essential** to store large data (bitmaps) in flash memory, saving the very limited 2KB of RAM. Requires special functions like `pgm_read_byte()` and `memcpy_P()` to access data. | **`PROGMEM` is not needed.** These boards have ample RAM. Remove the `#include <avr/pgmspace.h>` and `PROGMEM` keyword. Replace all instances of `pgm_read_byte(addr)` and `pgm_read_word(addr)` with direct pointer access (`*addr` or array indexing). Replace `memcpy_P()` with the standard `memcpy()`. | **`PROGMEM` is unsupported and will cause a compile error.** You must remove `#include <avr/pgmspace.h>` and the `PROGMEM` keyword. Replace `pgm_read_byte()`/`pgm_read_word()` with direct pointer access and `memcpy_P()` with the standard `memcpy()`. |
+| **Pin Definitions** | **Baseline** | ✅ **No Action Required (If I2C is updated)** | ✅ **No Action Required (If I2C is updated)** |
+| | The `OLED_RESET` pin is defined as -1, which is portable. No other pins are defined in the main sketch. | The only pin-related change is for the I2C interface, as noted above. | The only pin-related change is for the I2C interface, as noted above. |
 
 </details>
