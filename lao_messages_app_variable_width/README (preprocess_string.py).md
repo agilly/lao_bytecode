@@ -1,6 +1,11 @@
 # Understanding `preprocess_strings.py`
+Author: Oliver Lee  
+Technical contributors: Oliver Lee
 
-`preprocess_strings.py` is a key utility script designed to prepare text, especially complex Unicode strings like Lao script, for use in memory-constrained devices such as Arduino. It achieves this by breaking down strings into individual displayable units (grapheme clusters) and creating efficient numerical mappings.
+`preprocess_strings.py` contains the utilities used for the first step in the process of displaying complex scripts such as Lao: processing the strings the user would like to display into individual displayable units, called graphemes. Later on, code developed by Oisín Conlon will convert these graphemes into bitmaps, ready for display on hardware using code developed by Diya Thomas.
+
+The wider project process is illustrated in the following flowchart:
+![Flowchart of project](./www/assets/overall_flow.png)
 
 ## How it Works
 
@@ -26,7 +31,7 @@ def decompose_string_to_clusters(s):
 ### 2. Input String Collection
 The script offers two flexible methods for gathering the strings you want to process:
 
-* **`get_input_strings_from_csv(file_path)`**: This function reads sentences or phrases from a specified CSV file. Each line in the CSV is treated as a separate input string. If a row contains multiple comma-separated values, they're joined into a single string with spaces. It uses `utf-8` encoding to support a wide range of Unicode characters.
+* **`get_input_strings_from_csv(file_path)`**: This function reads sentences or phrases from a specified CSV file. Each line in the CSV is treated as a separate input string. If a row contains multiple comma-separated values, they're joined into a single string with spaces. It uses `utf-8` encoding to support a wide range of Unicode characters including Lao.
 ```python
 import csv
 def get_input_strings_from_csv(file_path):
