@@ -21,7 +21,7 @@ This initiative strongly resonates with **SDG 9 (Industry, Innovation, and Infra
 
 This commitment to open access also aligns with **SDG 4 (Quality Education)**, allowing people to learn from and use this technology for their own projects, and have access to a greater range of systems involving microcontrollers and screens, where before, the inability to display the Lao language may have acted as a sticking point.
 
-`![The solution - clear and readable Lao script on a simple digital display](./assets/Lao_text_on_screen.jpeg)`
+![The solution - clear and readable Lao script on a simple digital display](./assets/Lao_text_on_screen.jpeg)
 
 ## Guided by the Principles for Digital Development
 
