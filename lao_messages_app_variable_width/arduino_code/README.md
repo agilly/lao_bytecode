@@ -37,37 +37,68 @@ Initializes the hardware.
 <details>
 <summary>checkSerialInput</summary>
   
-Monitors the Serial input buffer.  
-* Waits for numeric input from the user (e.g., `1`, `2`, ...)
-* Validates the input and passes the **index** to `displayPhraseByIndex()`  
-* Prints errors if the input is invalid or out of range
+Monitors the Serial input buffer.
+* Waits for numeric input from the user (e.g., 1, 2, ...)
+* Validates the input and passes the index to `displayPhraseByIndex()`
+* Prints an error if the input is invalid or out of range
   
 </details>
 <details>
 <summary>displayPhraseByIndex</summary>
   
 Selects and displays the phrase corresponding to a given index.
-* Retrieves **phrase data** from program memory:
-* Uses `phrase_starts[]` to locate the starting index of the phrase inside `all_phrases[]`
-* Uses `phrase_lengths[]` to determine how many glyphs to read for that phrase
-* Each glyph is represented as an integer index into the bitmap font arrays
-* Passes the resulting glyph sequence and its length to either:
-* Calls `scrollPhrase()` at the end for animated scrolling
-* or `staticPhrase()` for a static layout
-- This function abstracts away the data lookup so your project can simply call:
-```cpp
-displayPhraseByIndex(2);  // Displays the second defined phrase
-```
+
+* Retrieves phrase start and length from `phrase_starts[]` and `phrase_lengths[]`
+* Points to the correct slice of `all_phrases[]`
+* Sends the glyph sequence to `scrollPhrase()` (or `staticPhrase()` if preferred)
+* Abstracts the phrase selection, so only an index is needed
+  
 </details>
+
 <details>
 <summary>scrollPhrase</summary>
+
+Scrolls a phrase horizontally across the screen.
+
+* Calculates the total scroll width from the unpadded glyph widths
+* Starts the phrase off-screen and scrolls it one pixel at a time
+* Loads each glyph from flash memory and renders it with tight spacing
+* Updates the screen at each step to animate the scroll
+
 </details>
 <details>
+  
 <summary>staticPhrase</summary>
+
+Displays a phrase statically (no scrolling).
+
+* Clears the screen and centers the text vertically
+* Iterates through glyphs, drawing each side by side
+* Uses unpadded widths for spacing
+* Updates the screen once after all glyphs are drawn
+
 </details>
 
-## Interfacing with your project
+## Adapting to any project
 
-## Compatibility with other hardware
+#### User Input
+The current system expects a numeric input via Serial.
+You can replace this with another input source, such as:
+* Physical buttons mapped to phrase numbers
+* A internet module that sends an input
+* A sensor that triggers a specific phrase
 
-## Troubleshooting
+**Replace the `checkSerialInput` with your bespoke input reading function. At the end of your custom input function, simply call `displayPhraseByIndex`**
+
+The code will handle the rest!
+
+#### Output
+The current system expects the following hardware:
+
+* Arduino UNO or Nano
+* I2C communication
+* SSD1306 128×64 OLED
+
+If you are using **any other hardware, refer to this [README](../../lao_messages_app_variable_width/README_Hardware_Details.md).**
+
+A dropdown contains all the relevant modification tables (interfacing with SPI instead, different microcontrollers, different screen types ect.).
