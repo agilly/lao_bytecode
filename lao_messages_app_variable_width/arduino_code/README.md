@@ -83,6 +83,11 @@ Displays a phrase statically (no scrolling).
 
 #### User Input
 The current system expects a numeric input via Serial.
+
+* Open Serial Monitor
+* Wait for **"Enter the number corresponding to the phrase you'd like to display"** message
+* Enter number corresponding to phrase (**must be >= 1**)
+  
 You can replace this with another input source, such as:
 * Physical buttons mapped to phrase numbers
 * A internet module that sends an input
