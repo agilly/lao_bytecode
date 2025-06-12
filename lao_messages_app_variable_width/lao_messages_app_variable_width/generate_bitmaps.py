@@ -125,7 +125,7 @@ def generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT = 30, font_path="./font_f
             if w > 0 and h > 0:
                 glyph_img = Image.frombytes('L', (w, h), bytes(bitmap.buffer))
                 
-                # These positioning calculations remain as per your existing code.
+                
                 x_pos = x + (pos.x_offset // 64) + face.glyph.bitmap_left
                 y_pos = y - (pos.y_offset // 64) - face.glyph.bitmap_top
                 
@@ -147,7 +147,7 @@ def generate_bitmaps_for_chars(char_list, GLYPH_HEIGHT = 30, font_path="./font_f
             x += pos.x_advance // 64
             y -= pos.y_advance // 64 
 
-        # Resize glyph image (remains unchanged)
+        # Resize glyph image
         resized_width = int(GLYPH_HEIGHT * wh_ratio)
         img_resized = image.resize((resized_width, GLYPH_HEIGHT), Image.Resampling.NEAREST)
 
