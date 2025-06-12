@@ -17,7 +17,7 @@ Eg. The phrase **ສະບາຍດີໂລກ** (hello world) gets processed i
 
 
 ### Step 2
-Each grapheme is passed to the `generate_bitmaps_for_chars` function, where it is rendered into an image using a TTF font and shaped using HarfBuzz. This image is then converted into a bitmap—a binary representation of the pixel data. The bitmap size is determined by the user-defined font size. The resulting data, including character bitmaps and phrase indexing information, is stored in header files, along with additional arrays that help the microcontroller interpret and retrieve the correct the bitmaps from memory. To assist with validation, we include a `display_bitmap_row` debugging function. This displays each rendered bitmap on the computer terminal so users can visually verify that the output is correct before flashing it to the microcontroller.
+Each grapheme is passed to the `generate_bitmaps_for_chars` function, where it is rendered into an image using a TTF font and shaped using HarfBuzz. This image is then converted into a bitmap—a binary representation of the pixel data. The resulting data, including character bitmaps and phrase indexing information, is stored in header files, along with additional arrays that help the microcontroller interpret and retrieve the correct the bitmaps from memory. To assist with validation, we include a `display_bitmap_row` debugging function. This displays each rendered bitmap on the computer terminal so users can visually verify that the output is correct before flashing it to the microcontroller.
 
 The Bitmap stored in a byte array:
 
@@ -32,6 +32,8 @@ The ouput of `display_bitmap_row`:
 The Arduino reads the header files and displays the selected phrase using one of two custom functions: `scrollPhrase` (ideal for long text or small screens) or `staticPhrase` (useful for E-Ink displays in low-power environments). Users can select a phrase by entering its number (e.g. 1, 2, 3...), and the system automatically calls the `displayPhraseByIndex` function to trigger the display. For our proof of concept, Serial communication is used to send the phrase number, but the system is modular enough to be extended to other input methods, including wireless protocols like LoRa or Wi-Fi—as long as the phrase number is passed to the same logic.
 
 In our hello world example from above, there is only 1 phrase loaded to the arduino - so you would type 1 into the Serial monitor to display it.
+
+<img src="assets/serial monitor 1.png" alt="Serial monitor ourput" width="500"/>
 
 ## Video Demos
 The system supports both static and scrolling text. Demonstration videos can be found below:
