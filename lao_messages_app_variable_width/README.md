@@ -182,7 +182,10 @@ If your project involves all of the above hardware, connect the OLED screen to t
 
 ---
 
-### Interfacing with other hardware 
+### Interfacing with other hardware  
+
+Author: Oisín Conlon
+
 Please refer to the dropdown below if you are using any other form of hardware.
 <details>
 <summary>Click to expand</summary>
