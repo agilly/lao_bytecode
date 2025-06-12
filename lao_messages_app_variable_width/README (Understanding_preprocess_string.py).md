@@ -9,7 +9,7 @@ The wider project process is illustrated in the following flowchart:
 
 ## How it Works
 
-The script operates through several core functions that form a processing pipeline:
+The script operates through several core functions:
 
 ### 1. Decomposing Strings into Grapheme Clusters
 
@@ -29,9 +29,10 @@ def decompose_string_to_clusters(s):
 # decompose_string_to_clusters("héllo") will yield ['h', 'é', 'l', 'l', 'o'] # For Lao, it handles base characters and combining marks correctly.
 ```
 ### 2. Input String Collection
-The script offers two flexible methods for gathering the strings you want to process:
+If a CSV listing all the phrases the user wants to display exists, it can be preloaded, otherwise direct user input is required and the CSV is saved for future use. 
 
-* **`get_input_strings_from_csv(file_path)`**: This function reads sentences or phrases from a specified CSV file. Each line in the CSV is treated as a separate input string. If a row contains multiple comma-separated values, they're joined into a single string with spaces. It uses `utf-8` encoding to support a wide range of Unicode characters including Lao.
+* **`get_input_strings_from_csv(file_path)`**: This function reads sentences or phrases from a specified CSV file. Each line in the CSV is treated as a separate input string. To achieve this there are three helper functions
+
 ```python
 import csv
 def get_input_strings_from_csv(file_path):
@@ -47,7 +48,7 @@ def get_input_strings_from_csv(file_path):
                 input_list.append(sentence)
     return input_list
 ```
-* **`get_input_strings()`**: For quick tests or smaller sets of messages, you can interactively input strings directly through your terminal. The input process concludes when you submit an empty line.
+* **`get_input_strings()`**: 
 ```python
 def get_input_strings():
     """
@@ -62,8 +63,7 @@ def get_input_strings():
         input_list.append(s)
     return input_list
 ```
-### 3. Saving Strings to CSV
-The `save_strings_to_csv(input_list, file_path)` utility function allows you to write a list of strings back into a CSV file, with each string occupying its own row. This can be useful for saving interactively entered strings or for checkpointing processed data.
+* **`save_strings_to_csv()`**: 
 ```python
 def save_strings_to_csv(input_list, file_path):
     """
@@ -75,19 +75,22 @@ def save_strings_to_csv(input_list, file_path):
             writer.writerow([string])
 ```
 ### 4. Building Character and Index Mappings
-The `build_char_and_index_lists(input_list)` function is the core of this script's optimization for embedded systems. It converts human-readable strings into a highly compact, numerical representation.
+The `build_char_and_index_lists(input_list)` function is the core of our memory compact system. It converts human-readable strings into a compact representation.
 
-Here's how it works:
+Its functionality is illustrated in the following flowchart: 
+![Flowchart of Char and index mappings](../www/assets/cluster%20flow.png)
 
 1.  It iterates through each input string, decomposing it into grapheme clusters.
-2.  It builds a master list of all unique grapheme clusters encountered across all input strings.
+2.  It builds a list of all unique grapheme clusters encountered across all input strings.
 3.  Each unique cluster is assigned a numerical index.
 4.  Finally, each original input string is translated into a list of these numerical indices.
 
 The function returns two lists:
 
-* **`char_list`**: The master list of all unique grapheme clusters. This acts as your "character set" or "font lookup table" for the embedded device.
+* **`char_list`**: The master list of all unique grapheme clusters. In the example of 'héllo', this would be [h, é, l, l, o]
+
 * **`index_list`**: A list where each element is another list of integers, representing an original input string as a sequence of indices into `char_list`.
+
 ```python
 def build_char_and_index_lists(input_list):
     """
@@ -112,7 +115,7 @@ def build_char_and_index_lists(input_list):
     return char_list, index_list
 ```
 ### 5. Exporting to C++ Header File
-The `write_index_list_to_header(index_list, filename)` function handles exporting the processed data into a C++ header file (`.h`). This makes the data directly usable by Arduino or other embedded C++ projects without complex parsing on the device.
+The `write_index_list_to_header(index_list, filename)` function handles exporting the processed data into a C++ header file (`.h`). This makes the data directly usable for the arduino code written by Diya
 
 The header file generates several C-style arrays:
 
@@ -121,7 +124,8 @@ The header file generates several C-style arrays:
 * **`phrase_lengths[]`**: An array indicating the length (number of grapheme clusters) of each phrase.
 * **`num_phrases`**: A constant defining the total number of phrases.
 
-This structure allows your embedded device to efficiently retrieve any specific phrase by simply looking up its start index and length.
+This structure allows the arduino to efficiently retrieve any specific phrase by looking up its start index and length.
+
 ```python
 import os
 def write_index_list_to_header(index_list, filename="./arduino_code/phrases_to_display.h"):
@@ -166,15 +170,10 @@ def write_index_list_to_header(index_list, filename="./arduino_code/phrases_to_d
 ```
 ## Strengths and Weaknesses
 ### Strengths
-* **Robust Unicode Handling**: This script expertly handles complex Unicode characters, like those in Lao script, ensuring they're correctly segmented and displayed as single units using the `grapheme` library.
-* **Memory Efficiency**: It's highly memory-efficient for embedded systems. By creating a unique character set and representing strings as numerical indices, it significantly reduces the amount of data the device needs to store.
-* **Flexible Input Methods**: You can provide input strings either by loading them from a CSV file for batch processing or by typing them in interactively through the terminal for quick tests.
-* **Direct C++ Integration**: The script directly outputs a C++ header file, streamlining the process of getting your pre-processed text data into Arduino or other embedded firmware.
-* **Clear Embedded Structure**: The generated C arrays (`all_phrases`, `phrase_starts`, `phrase_lengths`) provide a straightforward and efficient way for the embedded device to access and display messages.
+* **Robust Unicode Handling**: This script handles complex Unicode characters like those in Lao script, ensuring they're correctly segmented and displayed as single units using the `grapheme` library.
+* **Memory Efficiency**: It's highly memory-efficient for embedded systems. By creating a unique character set and representing strings as numerical indices, we significantly reduces the amount of data the device needs to store.
+* **Flexible Input Methods**: Input strings can be provided by either loading them from a CSV file or by typing them in interactively through the terminal.
+* **Direct C++ Integration**: The script directly outputs a C++ header file, streamlining the process of using the pre-processed text.
 
 ### Weaknesses
-* **Static Character Set**: The character set is built dynamically based on your input. If you introduce new characters later, you'll need to re-run the preprocessing to update the character set and any associated bitmap generation.
-* **No Dynamic String Creation on Device**: This system is tailored for pre-defined phrases. It's not designed for the embedded device to dynamically create entirely new strings from individual characters on the fly (though the device could concatenate existing indexed segments if programmed to do so).
-* **`uint8_t` Index Limitation**: The C++ header uses `uint8_t` for indices. This limits the number of unique grapheme clusters and phrases to 256. For projects with very large character sets or thousands of phrases, you'd need to modify the `write_index_list_to_header` function to use `uint16_t` or `uint32_t`.
-* **External Python Dependency**: It relies on the `grapheme` Python package, which needs to be installed in your environment.
-* **Basic Error Handling**: The script assumes valid CSV format and UTF-8 encoding. It doesn't include robust error handling for issues like malformed CSV files or encoding errors.
+* **No Dynamic String Creation on Device**: This system is tailored for pre-defined phrases. The arduino cannot display entirely new strings on the fly.
