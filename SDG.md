@@ -10,10 +10,7 @@ However, in Laos, as in other countries with a similar problem, this is exceedin
 
 > We believe that everyone should have access to this technology regardless of linguistic barriers.
 
-***
-*To add your image here, use the following Markdown syntax:*
-`![A visual representation of the technological and linguistic challenge](./assets/your-image-name.jpeg)`
-***
+![The Sustainable Development Goals](./assets/SDG_image.png)
 
 ## Our Solution: Fostering Innovation and Inclusivity
 
