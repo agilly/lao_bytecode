@@ -8,7 +8,9 @@ This guide explains how to set up and run the `lao_messages_app_variable_width` 
 ## **Setup Flowchart**
 <details>
 <summary>Click to view the setup flowchart</summary>
+
 ![Flowchart of setup process](./assets/Visual_setup_guide.png "The setup process")
+
 </details>
 
 ---
@@ -66,7 +68,7 @@ These first three steps are required for **all operating systems** and both setu
 Choose one of the two methods below. The fast setup is recommended for its simplicity.
 
 <details>
-<summary>Click to view method 1: Fast Setup</summary>
+<summary>Method 1: Fast Setup</summary>
 
 ### Method 1: Fast Setup ⚡
 
@@ -86,10 +88,11 @@ This method uses a shell script to automate the entire setup process.
 </details>
 <br>
 
+<details>
+<summary>Method 2: Manual Setup</summary>
+
 ### Method 2: Manual Setup 🛠️
 
-<details>
-<summary>Click to expand for manual Linux & macOS instructions</summary>
 
 For those who prefer a step-by-step approach, follow these instructions.
 
@@ -140,7 +143,7 @@ For those who prefer a step-by-step approach, follow these instructions.
 Choose one of the two methods below. The fast setup is recommended for its simplicity.
 
 <details>
-<summary>Click to view method 1: Fast Setup</summary>
+<summary>Method 1: Fast Setup</summary>
 
 ### Method 1: Fast Setup ⚡
 
@@ -162,10 +165,10 @@ This method uses a PowerShell script to automate the entire setup process.
 
 <br>
 
-### Method 2: Manual Setup 🛠️
-
 <details>
-<summary>Click to expand for manual Windows instructions</summary>
+<summary>Method 2: Manual Setup</summary>
+
+### Method 2: Manual Setup 🛠️
 
 For those who prefer a step-by-step approach, follow these instructions.
 
