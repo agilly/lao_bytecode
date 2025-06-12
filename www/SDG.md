@@ -1,4 +1,6 @@
-# Bridging the Digital Divide in Agriculture: Displaying Lao Script on Simple Digital Systems
+# Bridging the Digital Divide in Agriculture: Displaying Lao Script on Simple Digital Systems  
+
+Author: Oisín Conlon
 
 ## The Challenge: Unlocking Sustainable Farming in Laos
 
