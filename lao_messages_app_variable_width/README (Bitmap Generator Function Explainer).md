@@ -343,6 +343,6 @@ The solution is robust, producing a C++ header file that is optimised for perfor
 
 ---
 
-#### **5. Conclusion**
+#### **Conclusion**
 
 The Glyph Bitmap Generator is a professional-grade tool that is perfectly suited for its intended purpose. It is not just a simple script but a complete processing pipeline that intelligently handles a challenging real-world problem.
