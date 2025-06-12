@@ -13,7 +13,7 @@ The script operates through several core functions:
 
 ### 1. Decomposing Strings into Grapheme Clusters
 
-The `decompose_string_to_clusters(s)` function is crucial for handling Unicode complexity. It takes an input string and splits it into **grapheme clusters**, which are what a human perceives as a single character, even if composed of multiple Unicode code points (e.g., an 'e' with an accent mark like 'é'). This is achieved using the `grapheme` library, which adheres to the Unicode Text Segmentation standard.
+The `decompose_string_to_clusters(s)` function is critical. It takes an input string and splits it into **grapheme clusters**, which are what a human perceives as a single character, even if composed of multiple Unicode code points (e.g., an 'e' with an accent mark like 'é'). This is achieved using the `grapheme` library, which adheres to the Unicode Text Segmentation standard.
 
 ```python
 import grapheme
@@ -29,9 +29,8 @@ def decompose_string_to_clusters(s):
 # decompose_string_to_clusters("héllo") will yield ['h', 'é', 'l', 'l', 'o'] # For Lao, it handles base characters and combining marks correctly.
 ```
 ### 2. Input String Collection
-If a CSV listing all the phrases the user wants to display exists, it can be preloaded, otherwise direct user input is required and the CSV is saved for future use. 
-
-* **`get_input_strings_from_csv(file_path)`**: This function reads sentences or phrases from a specified CSV file. Each line in the CSV is treated as a separate input string. To achieve this there are three helper functions
+If a CSV listing all the phrases the user wants to display exists, it can be preloaded, otherwise direct user input is required and the CSV is saved for future use. To achieve this there are three helper functions
+* **`get_input_strings_from_csv(file_path)`**:
 
 ```python
 import csv
@@ -63,7 +62,7 @@ def get_input_strings():
         input_list.append(s)
     return input_list
 ```
-* **`save_strings_to_csv()`**: 
+* **`save_strings_to_csv(input_list, file_path)`**: 
 ```python
 def save_strings_to_csv(input_list, file_path):
     """
@@ -89,7 +88,7 @@ The function returns two lists:
 
 * **`char_list`**: The master list of all unique grapheme clusters. In the example of 'héllo', this would be [h, é, l, l, o]
 
-* **`index_list`**: A list where each element is another list of integers, representing an original input string as a sequence of indices into `char_list`.
+* **`index_list`**: A list where each element is another list of integers, representing an original input string as a sequence of indices into **`char_list`**.
 
 ```python
 def build_char_and_index_lists(input_list):
@@ -171,7 +170,7 @@ def write_index_list_to_header(index_list, filename="./arduino_code/phrases_to_d
 ## Strengths and Weaknesses
 ### Strengths
 * **Robust Unicode Handling**: This script handles complex Unicode characters like those in Lao script, ensuring they're correctly segmented and displayed as single units using the `grapheme` library.
-* **Memory Efficiency**: It's highly memory-efficient for embedded systems. By creating a unique character set and representing strings as numerical indices, we significantly reduces the amount of data the device needs to store.
+* **Memory Efficiency**: It's highly memory-efficient for embedded systems. By creating a unique character set and representing strings as numerical indices, we significantly reduce the amount of data the device needs to store.
 * **Flexible Input Methods**: Input strings can be provided by either loading them from a CSV file or by typing them in interactively through the terminal.
 * **Direct C++ Integration**: The script directly outputs a C++ header file, streamlining the process of using the pre-processed text.
 
