@@ -1,5 +1,5 @@
-
 ## Hardware details 
+Authors: Diya Thomas and Oisín Conlon
 The code can be uploaded to the microcontroller for use on a screen with **no changes** to the code if you are using:
 1. **Arduino UNO or Nano**
 2. **I2C communication**
@@ -19,8 +19,6 @@ If your project involves all of the above hardware, connect the OLED screen to t
 ---
 
 ### Interfacing with other hardware  
-
-Author: Oisín Conlon
 
 Please refer to the dropdown below if you are using any other form of hardware.
 <details>
