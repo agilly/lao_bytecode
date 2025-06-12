@@ -1,9 +1,15 @@
 # `lao_messages_app_variable_width` Setup Guide & 'Fast Setup' Explanation
 Author: Oliver Lee, Technical contributors: Oliver Lee
 
-This guide explains how to set up and run the `lao_messages_app_variable_width` project on both Linux-based systems and Windows. The flowchart below illustrates the setup process, and below it you will find a far more detailed explanation.
+This guide explains how to set up and run the `lao_messages_app_variable_width` project on both Linux-based systems and Windows. 
 
-![Flowchart of setup process](./lao_messages_app_variable_width/assets/Visual_setup_guide.png "The setup process")
+---
+
+## **Setup Flowchart**
+<details>
+<summary>Click to view the setup flowchart</summary>
+![Flowchart of setup process](./assets/Visual_setup_guide.png "The setup process")
+</details>
 
 ---
 
@@ -59,6 +65,9 @@ These first three steps are required for **all operating systems** and both setu
 
 Choose one of the two methods below. The fast setup is recommended for its simplicity.
 
+<details>
+<summary>Click to view method 1: Fast Setup</summary>
+
 ### Method 1: Fast Setup ⚡
 
 This method uses a shell script to automate the entire setup process.
@@ -74,7 +83,7 @@ This method uses a shell script to automate the entire setup process.
     ```bash
     ./fast_setup_arduino_LINUX.sh
     ```
-
+</details>
 <br>
 
 ### Method 2: Manual Setup 🛠️
@@ -130,6 +139,9 @@ For those who prefer a step-by-step approach, follow these instructions.
 
 Choose one of the two methods below. The fast setup is recommended for its simplicity.
 
+<details>
+<summary>Click to view method 1: Fast Setup</summary>
+
 ### Method 1: Fast Setup ⚡
 
 This method uses a PowerShell script to automate the entire setup process.
@@ -145,6 +157,8 @@ This method uses a PowerShell script to automate the entire setup process.
         .\fast_setup_arduino_WINDOWS.ps1
         ```
     The script will take care of creating the Python virtual environment, installing Python packages, launching the application, and opening the Arduino IDE for you.
+
+</details>
 
 <br>
 
