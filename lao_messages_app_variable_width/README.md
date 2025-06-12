@@ -2,6 +2,10 @@
 
 This guide explains how to set up and run the `lao_messages_app_variable_width` project on both Linux-based systems and Windows.
 
+![Flowchart of setup process](./assets/Visual_setup_guide.png "The setup process")
+
+<details>
+<summary>Click to expand for step-by-step instructions</summary>
 ---
 
 ## **Prerequisites**
@@ -161,7 +165,7 @@ This method uses a PowerShell script to automate the entire setup.
     deactivate
     ```
 </details>
-
+</details>
 ---
 ## Hardware details 
 The code can be uploaded to the microcontroller for use on a screen with **no changes** to the code if you are using:
